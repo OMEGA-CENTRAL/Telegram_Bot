@@ -3,6 +3,7 @@ from datetime import datetime
 import os
 from telebot import types 
 from . import distributionAlgorithm 
+from datetime import datetime
 
 def dataChange(basedir, IDforChange, lineNumberToChange, replacementText):
 
@@ -362,26 +363,19 @@ def workBot(basedir):
     
     userDataLayout = "статус неизвестен\nдействие неизвестно\nпункт меню неизвестен\nнеизвестное имя блюда\nнеизвестная граммовка блюда\nнеизвестная цена блюда\n"
 
-<<<<<<< HEAD
+
     workToken = "6248869227:AAGPNfOpjhIEgYC4opEpUwOouCSpVKEAAEc"
     bot = telebot.TeleBot(workToken)
 
     userToken = "5778968531:AAEmYXnNrWlfz4qpdmS8kfO0bgKavtuF-Kk"
     userBot = telebot.TeleBot(userToken)
-=======
-    token = ""
-    bot = telebot.TeleBot(token)
-
-    user= ""
-    userBot = telebot.TeleBot(token)
->>>>>>> 5c559efa46e1bedebacd7c3c6917db5c8667eee2
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 
     @bot.message_handler(commands='start')
     def start_message(message):
         
-        print(message.text)
+        print("Рабочий | " + str(datetime.now())+ " | " + str(message.from_user.id) + " | "+ str(message.text))
         
         log  = (str(datetime.now()) + ' Нажат старт пользователем с ID: ' + str(message.from_user.id) + '\n')
 
@@ -410,7 +404,7 @@ def workBot(basedir):
     @bot.message_handler(content_types=['text'])
     def main(message):
         
-        print(message.text)
+        print("Рабочий | " + str(datetime.now())+ " | " + str(message.from_user.id) + " | "+ str(message.text))
         
         if (os.path.isfile(str(basedir) + r'\\Storage\\workers\\' + str(message.from_user.id) + ".txt")) != True:
             bot.send_message(message.chat.id, text= "❗️ Неидентифицированный пользователь ❗️" .format(message.from_user), reply_markup=markup)
@@ -550,12 +544,13 @@ def workBot(basedir):
                     bot.send_message(message.chat.id, text= ("⬇️ подтвердите отправку ⬇️") .format(message.from_user), reply_markup=keyboard)
 
                 elif(message.text == "Статистика" and dataRecieve(basedir, message.from_user.id, 2) == "main page"):
+                    current_datetime = datetime.now()
                     text = ''
                     numberUsers = 0
                     for root, dirs, files in os.walk(basedir + r"\Storage\users"):  
                             for file in files:
                                 numberUsers += 1
-                    text += "Общая статистика:\n\n"+"Число пользователей: " + str(numberUsers)
+                    text += "< Общая статистика >\n"+"Число пользователей: " + str(numberUsers)
                     #
                     with open(str(basedir) + r'\\Storage\\statistics\\evaluations.txt', 'r', encoding='utf-8') as file:              
                         reviews = file.read()
@@ -572,7 +567,46 @@ def workBot(basedir):
                         text += "\nСредняя оценка: " + str(averageRating)
                     else:
                         text += "\nСредняя оценка неизвестна" 
+
                     #
+                    
+                    if(current_datetime.month < 10):
+                        mouth = "0"+str(current_datetime.month)
+                    else:
+                        mouth = str(current_datetime.month)
+
+                    text += "\n\n< Статистика за " + mouth + "/" + str(current_datetime.year)+" >"
+                    with open(str(basedir) + r'\\Storage\\statistics\\users.txt', 'r', encoding='utf-8') as file:              
+                        newUsers = file.read()
+                    
+                    text += "\nНовых пользователей: " + str(newUsers)
+
+                    #
+
+                    with open(str(basedir) + r'\\Storage\\statistics\\numberOrderLastMouth.txt', 'r', encoding='utf-8') as file:              
+                        numberOrderLastMouth = file.read()
+
+                    text +="\nКоличество заказов: " + numberOrderLastMouth
+                    
+                    #
+
+                    with open(str(basedir) + r'\\Storage\\statistics\\averageCheckLastMouth.txt', 'r', encoding='utf-8') as file:              
+                        averageOrderLastMouth = file.read()
+
+                    text +="\nСредний чек: " + averageOrderLastMouth + "руб"
+                    
+                    #
+
+                    with open(str(basedir) + r'\\Storage\\statistics\\amountsDiscont.txt', 'r', encoding='utf-8') as file:              
+                        amountsDisconts = file.read()
+                    
+                    with open(str(basedir) + r'\\Storage\\minimumOrderAmount.txt', 'r', encoding='utf-8') as file:              
+                        minimumOrderAmount = file.read()
+
+                    text +="\nПользователей заказавших меньше чем на " + minimumOrderAmount+ "руб. " + str(amountsDisconts) + " из " + str(numberUsers)
+
+                    #
+                    
                     bot.send_message(message.chat.id, text = text .format(message.from_user))
 
                 elif(message.text == "Создать рассылку" and dataRecieve(basedir, message.from_user.id, 2) == "main page"):
@@ -746,7 +780,7 @@ def workBot(basedir):
 
     @bot.callback_query_handler(func=lambda call: True)
     def menu_inline(message):
-        print(message.data)
+        print("Рабочий | " + str(datetime.now())+ " | " + str(message.from_user.id) + " | "+ str(message.data))
         if (message.data == "create category" and dataRecieve(basedir, message.from_user.id, 2) == "edit menu"):
 
             keyboard = types.InlineKeyboardMarkup(row_width=2)

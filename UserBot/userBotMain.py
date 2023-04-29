@@ -84,7 +84,7 @@ def pageBusinessLunch(basedir, message, bot):
         btn5 = types.InlineKeyboardButton(text = "▶", callback_data = "further")
         
         keyboard.row(btn3,btn4,btn5)
-        bot.send_message(message.from_user.id, text= "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n                        Супы:\n______________________________" .format(message.from_user), reply_markup=keyboard)
+        bot.send_message(message.from_user.id, text= "⠀                           ⠀\n⠀                      Супы:                      ⠀\n⠀                           ⠀" .format(message.from_user), reply_markup=keyboard)
 
 def counting(basedir, message, numberLine, text):
     line = dataRecieve(basedir, message.from_user.id, numberLine)
@@ -119,7 +119,7 @@ def removeDish(basedir, message, numberLine, text):
     return(textToReturn)
 
 def countingPrise(basedir, message, bot):
-    filenames = dataRecieve(basedir, message.from_user.id,23)
+    filenames = dataRecieve(basedir, message.from_user.id,25)
 
     prise = 0
 
@@ -136,8 +136,8 @@ def countingPrise(basedir, message, bot):
             prise = prise + int(filenames[i].partition("!")[2].partition("!")[2])
 
     for o in range(100):
-        line = dataRecieve(basedir, message.from_user.id, 25 + o)
-        if(counting(basedir, message, 25 + o, "none")) != "1":
+        line = dataRecieve(basedir, message.from_user.id, 27 + o)
+        if(counting(basedir, message, 27 + o, "none")) != "1":
             prise = prise + int(line.partition("!")[2].partition("!")[0]) * int(line.partition("!")[2].partition("!")[2])
         else:
             break
@@ -146,7 +146,7 @@ def countingPrise(basedir, message, bot):
 
 def basket(basedir, message, bot):
     
-    if((dataRecieve(basedir, message.from_user.id,23) == "меню неизвестно" or dataRecieve(basedir, message.from_user.id,23) == "") and counting(basedir, message, 25, "none") == "1"):
+    if((dataRecieve(basedir, message.from_user.id,25) == "меню неизвестно" or dataRecieve(basedir, message.from_user.id,25) == "") and counting(basedir, message, 27, "none") == "1"):
 
         bot.send_message(message.chat.id, text = "Ваша корзина пуста!" .format(message.from_user))
 
@@ -178,12 +178,12 @@ def basket(basedir, message, bot):
     
 
                 else:
-                    if(counting(basedir,message,23,message.data) == "1"):
+                    if(counting(basedir,message,25,message.data) == "1"):
                         btn1 = types.InlineKeyboardButton(text = "-", callback_data = "delete" + message.data)
                     else:
                         btn1 = types.InlineKeyboardButton(text = "-", callback_data = "-- " + message.data)
 
-                    btn2 = types.InlineKeyboardButton(text = counting(basedir,message,23,message.data), callback_data = "none")
+                    btn2 = types.InlineKeyboardButton(text = counting(basedir,message,25,message.data), callback_data = "none")
                     btn3 = types.InlineKeyboardButton(text = "+", callback_data = "++ " + message.data)
                     btn4 = types.InlineKeyboardButton(text = "❌", callback_data = "delete" + message.data)
 
@@ -205,8 +205,8 @@ def basket(basedir, message, bot):
             keyboard.row(btn2)
             bot.send_message(message.chat.id, text= "Ваша корзина:" .format(message.from_user), reply_markup=keyboard)
 
-            if(dataRecieve(basedir, message.from_user.id,23) != "меню неизвестно" and dataRecieve(basedir, message.from_user.id,23) != ""):
-                filenames = dataRecieve(basedir, message.from_user.id,23) 
+            if(dataRecieve(basedir, message.from_user.id,25) != "меню неизвестно" and dataRecieve(basedir, message.from_user.id,25) != ""):
+                filenames = dataRecieve(basedir, message.from_user.id,25) 
                 filenames = filenames.replace(" ",";")
                 filenames = filenames.replace(":"," ")
                 filenames = filenames.split()
@@ -217,11 +217,11 @@ def basket(basedir, message, bot):
                 for i in range(len(textNoRepetition)):
                     keyboard = types.InlineKeyboardMarkup(row_width=4)
                     filename = str(textNoRepetition[i]).replace(";"," ")
-                    if(counting(basedir,message,23,textNoRepetition[i]) == "1"):
+                    if(counting(basedir,message,25,textNoRepetition[i]) == "1"):
                         btn1 = types.InlineKeyboardButton(text = "-", callback_data ="delete" + filename)
                     else:
                         btn1 = types.InlineKeyboardButton(text = "-", callback_data = "-- " + filename)
-                    btn2 = types.InlineKeyboardButton(text = counting(basedir,message,23,textNoRepetition[i]), callback_data = "none")
+                    btn2 = types.InlineKeyboardButton(text = counting(basedir,message,25,textNoRepetition[i]), callback_data = "none")
                     btn3 = types.InlineKeyboardButton(text = "+", callback_data = "++ " + filename)
                     btn4 = types.InlineKeyboardButton(text = "❌", callback_data = "delete" + filename)
 
@@ -233,16 +233,16 @@ def basket(basedir, message, bot):
                     name = text.partition("!")[0]
                     text = text.partition("!")[2]
                     gramm = text.partition("!")[0]
-                    ruble = gramm = text.partition("!")[2]
+                    ruble = text.partition("!")[2]
                     caption = str(name + " " + gramm +"г/" + ruble + "руб")
                     
                     bot.send_message(message.chat.id, text = caption .format(message.from_user), reply_markup=keyboard)
 
             for i in range(100):
-                if(counting(basedir, message, i + 25, "none") != "1"):
+                if(counting(basedir, message, i + 27, "none") != "1"):
                     keyboard = types.InlineKeyboardMarkup(row_width=4)
                     
-                    lunch = dataRecieve(basedir, message.from_user.id,i + 25)
+                    lunch = dataRecieve(basedir, message.from_user.id,i + 27)
                     count = lunch.partition("!")[2].partition("!")[2]
                     
                     dishs = lunch.partition("!")[0]
@@ -259,19 +259,19 @@ def basket(basedir, message, bot):
 
                     for o in range(len(textNoRepetition)):
                         
-                        text = text + "\n" + textNoRepetition[o] + " (" + counting(basedir, message, i + 25, textNoRepetition[o]) + ")"
+                        text = text + "\n" + textNoRepetition[o] + " (" + counting(basedir, message, i + 27, textNoRepetition[o]) + ")"
                         
 
                     text = text.replace(";"," ")
                     text = text + "\n\n" + prise + "руб"
 
                     if(count == "1"):
-                        btn1 = types.InlineKeyboardButton(text = "-", callback_data ="delete$" + str(i + 25))
+                        btn1 = types.InlineKeyboardButton(text = "-", callback_data ="delete$" + str(i + 27))
                     else:
-                        btn1 = types.InlineKeyboardButton(text = "-", callback_data = "$-- "+ str(i + 25))
+                        btn1 = types.InlineKeyboardButton(text = "-", callback_data = "$-- "+ str(i + 27))
                     btn2 = types.InlineKeyboardButton(text = count, callback_data = "none")
-                    btn3 = types.InlineKeyboardButton(text = "+", callback_data = "$++ "+ str(i + 25))
-                    btn4 = types.InlineKeyboardButton(text = "❌", callback_data = "delete$" + str(i + 25))
+                    btn3 = types.InlineKeyboardButton(text = "+", callback_data = "$++ "+ str(i + 27))
+                    btn4 = types.InlineKeyboardButton(text = "❌", callback_data = "delete$" + str(i + 27))
 
                     keyboard.row(btn1,btn2,btn3,btn4)
                     bot.send_message(message.chat.id, text = text .format(message.from_user), reply_markup=keyboard)
@@ -306,7 +306,7 @@ def editPageBusinessLunch(basedir, message, bot):
         btn5 = types.InlineKeyboardButton(text = "▶", callback_data = "further")
         
         keyboard.row(btn3,btn4,btn5)
-        bot.edit_message_text(text= "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n                        Супы:\n______________________________" .format(message.from_user),  chat_id = message.from_user.id, message_id = message.message.id,reply_markup=keyboard)
+        bot.edit_message_text(text= "⠀                           ⠀\n⠀                      Супы:                      ⠀\n⠀                           ⠀" .format(message.from_user),  chat_id = message.from_user.id, message_id = message.message.id,reply_markup=keyboard)
         
     elif(dataRecieve(basedir, message.from_user.id,3) == "firstCourse"):
         filenames = []
@@ -329,7 +329,7 @@ def editPageBusinessLunch(basedir, message, bot):
         btn5 = types.InlineKeyboardButton(text = "▶", callback_data = "further")
         
         keyboard.row(btn3,btn4,btn5)
-        bot.edit_message_text(text= "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n                      Горячее:\n______________________________" .format(message.from_user),  chat_id = message.from_user.id, message_id = message.message.id,reply_markup=keyboard)
+        bot.edit_message_text(text= "⠀                           ⠀\n⠀                    Горячее:                   ⠀\n⠀                           ⠀" .format(message.from_user),  chat_id = message.from_user.id, message_id = message.message.id,reply_markup=keyboard)
 
     elif(dataRecieve(basedir, message.from_user.id,3) == "garnish"):
         filenames = []
@@ -352,7 +352,7 @@ def editPageBusinessLunch(basedir, message, bot):
         btn5 = types.InlineKeyboardButton(text = "▶", callback_data = "further")
         
         keyboard.row(btn3,btn4,btn5)
-        bot.edit_message_text(text= "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n                      Гарниры:\n______________________________" .format(message.from_user),  chat_id = message.from_user.id, message_id = message.message.id,reply_markup=keyboard)
+        bot.edit_message_text(text= "⠀                           ⠀\n⠀                   Гарниры:                   ⠀\n⠀                           ⠀" .format(message.from_user),  chat_id = message.from_user.id, message_id = message.message.id,reply_markup=keyboard)
 
     elif(dataRecieve(basedir, message.from_user.id,3) == "salad"):
         filenames = []
@@ -375,7 +375,7 @@ def editPageBusinessLunch(basedir, message, bot):
         btn5 = types.InlineKeyboardButton(text = "▶", callback_data = "further")
         
         keyboard.row(btn3,btn4,btn5)
-        bot.edit_message_text(text= "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n                      Салаты:\n______________________________" .format(message.from_user),  chat_id = message.from_user.id, message_id = message.message.id,reply_markup=keyboard)
+        bot.edit_message_text(text= "⠀                           ⠀\n⠀                    Салаты:                    ⠀\n⠀                           ⠀" .format(message.from_user),  chat_id = message.from_user.id, message_id = message.message.id,reply_markup=keyboard)
     
     elif(dataRecieve(basedir, message.from_user.id,3) == "bread"):
         filenames = []
@@ -398,7 +398,7 @@ def editPageBusinessLunch(basedir, message, bot):
         btn5 = types.InlineKeyboardButton(text = "▶", callback_data = "further")
         
         keyboard.row(btn3,btn4,btn5)
-        bot.edit_message_text(text= "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n                       Хлеба:\n______________________________" .format(message.from_user),  chat_id = message.from_user.id, message_id = message.message.id,reply_markup=keyboard)
+        bot.edit_message_text(text= "⠀                           ⠀\n⠀                      Хлеба:                     ⠀\n⠀                           ⠀" .format(message.from_user),  chat_id = message.from_user.id, message_id = message.message.id,reply_markup=keyboard)
 
     elif(dataRecieve(basedir, message.from_user.id,3) == "drink"):
         filenames = []
@@ -421,7 +421,7 @@ def editPageBusinessLunch(basedir, message, bot):
         btn5 = types.InlineKeyboardButton(text = "▶", callback_data = "further")
         
         keyboard.row(btn3,btn4,btn5)
-        bot.edit_message_text(text= "⌜                                                             ⌝\n                      Напитки:\n⌞                                                             ⌟" .format(message.from_user),  chat_id = message.from_user.id, message_id = message.message.id,reply_markup=keyboard)
+        bot.edit_message_text(text= "⠀                           ⠀\n⠀                   Напитки:                   ⠀\n⠀                           ⠀" .format(message.from_user),  chat_id = message.from_user.id, message_id = message.message.id,reply_markup=keyboard)
 
 
 def categoryMenu(basedir,message,bot):
@@ -452,85 +452,85 @@ def categoryMenu(basedir,message,bot):
     listPosition = 0
     
     if (amount >= 1):
-        add1 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add1 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition] + "@")
         listPosition += 1
         if (amount == 1):
             keyboard.add(add1)
 
     if (amount >= 2):
-        add2 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add2 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 2):
             keyboard.add(add1,add2)
 
     if (amount >= 3):
-        add3 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add3 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 3):
             keyboard.add(add1,add2,add3)
 
     if (amount >= 4):
-        add4 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add4 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 4):
             keyboard.add(add1,add2,add3,add4)
 
     if (amount >= 5):
-        add5 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add5 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 5):
             keyboard.add(add1,add2,add3,add4,add5)
 
     if (amount >= 6):
-        add6 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add6 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 6):
             keyboard.add(add1,add2,add3,add4,add5,add6)
     
     if (amount >= 7):
-        add7 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add7 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 7):
             keyboard.add(add1,add2,add3,add4,add5,add6,add7)
-
+ 
     if (amount >= 8):
-        add8 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add8 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 8):
             keyboard.add(add1,add2,add3,add4,add5,add6,add7,add8)
 
     if (amount >= 9):
-        add9 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add9 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 9):
             keyboard.add(add1,add2,add3,add4,add5,add6,add7,add8,add9)
 
     if (amount >= 10):
-        add10 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add10 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 10):
             keyboard.add(add1,add2,add3,add4,add5,add6,add7,add8,add9,add10)
 
     if (amount >= 11):
-        add11 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add11 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 11):
             keyboard.add(add1,add2,add3,add4,add5,add6,add7,add8,add9,add10,add11)
 
     if (amount >= 12):
-        add12 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add12 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 12):
             keyboard.add(add1,add2,add3,add4,add5,add6,add7,add8,add9,add10,add11,add12)
 
     if (amount >= 13):
-        add13 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add13 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 13):
             keyboard.add(add1,add2,add3,add4,add5,add6,add7,add8,add9,add10,add11,add12,add13)
 
     if (amount >= 14):
-        add14 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition])
+        add14 = types.InlineKeyboardButton(text=filenames[listPosition], callback_data = filenames[listPosition]+ "@")
         listPosition += 1
         if (amount == 14):
             keyboard.add(add1,add2,add3,add4,add5,add6,add7,add8,add9,add10,add11,add12,add13,add14)
@@ -572,7 +572,7 @@ def pageMenu(basedir,message,bot,page):
             
             with open(str(basedir) + r'\\Storage\\images\\'+ dirname +"\\"+ str(filenames[page - 1]) , "rb") as file:
 
-                count = counting(basedir,message,23,filenames[page - 1])
+                count = counting(basedir,message,25,filenames[page - 1])
                 
                 if (count == "0"):
                     btn1 = types.InlineKeyboardButton(text = "Добавить в корзину", callback_data = filenames[page - 1])
@@ -597,8 +597,9 @@ def pageMenu(basedir,message,bot,page):
                 name = text.partition("!")[0]
                 text = text.partition("!")[2]
                 gramm = text.partition("!")[0]
-                ruble = gramm = text.partition("!")[2]
-                caption = str(name + " " + gramm +"г/" + ruble + "руб")
+                ruble = text.partition("!")[2]
+                
+                caption = str(name + "\n" + gramm +"г/" + ruble + "руб")
 
                 bot.send_photo(message.from_user.id, file, reply_markup=keyboard, caption = caption)
 
@@ -609,7 +610,7 @@ def pageMenu(basedir,message,bot,page):
                 
                 with open(str(basedir) + r'\\Storage\\images\\'+ dirname +"\\"+ str(filenames[page - 1]) , "rb") as file:
                     
-                    count = counting(basedir,message,23,filenames[page - 1])
+                    count = counting(basedir,message,25,filenames[page - 1])
                 
                     if (count == "0"):
                         btn1 = types.InlineKeyboardButton(text = "Добавить в корзину", callback_data = filenames[page - 1])
@@ -634,8 +635,9 @@ def pageMenu(basedir,message,bot,page):
                     name = text.partition("!")[0]
                     text = text.partition("!")[2]
                     gramm = text.partition("!")[0]
-                    ruble = gramm = text.partition("!")[2]
-                    caption = str(name + " " + gramm +"г/" + ruble + "руб")
+                    ruble = text.partition("!")[2]
+                   
+                    caption = str(name + "\n" + gramm +"г/" + ruble + "руб")
 
                     with open(str(basedir) + r'\\Storage\\images\\'+ dirname +"\\"+ filenames[page - 1] , "rb") as file:
                         photo = types.InputMediaPhoto(media = file)
@@ -651,23 +653,41 @@ def pageMenu(basedir,message,bot,page):
 
 def showOrder(basedir,message,bot):
     textToReturn = ''
+
+    textToReturn += "\n\n" + "1) Номер телефона:\n- " + dataRecieve(basedir, message.from_user.id, 12)
+    if(dataRecieve(basedir, message.from_user.id, 19) == "доставка"):
+        textToReturn += "\n\n" + "2) Адрес доставки:\n- " + dataRecieve(basedir, message.from_user.id, 13)
+    if(dataRecieve(basedir, message.from_user.id, 19) == "самовывоз"):
+        textToReturn += "\n\n" + "2) Самовывоз из:\n- " + dataRecieve(basedir, message.from_user.id, 20)
+    textToReturn += "\n\n" + "3) Способ оплаты:\n- " + dataRecieve(basedir, message.from_user.id, 14)
+    if(dataRecieve(basedir, message.from_user.id, 15) != ''):
+        textToReturn += "\n\n" + "4) Комментарий к заказу:\n- " + dataRecieve(basedir, message.from_user.id, 15)
+
+    textToReturn += "\n\nЗаказ:"
+
     textToReturn += dataRecieve(basedir, message.from_user.id, 17).replace(";","\n")
 
     prise = int(dataRecieve(basedir, message.from_user.id, 16))
-    if(prise < 600):
+    discont = dataRecieve(basedir, message.from_user.id, 22)
+    if(discont != "неизвестна скидка" and discont != ""):
+        prise = prise - (prise / 100 * int(discont))
+
+    if(prise < 600 and dataRecieve(basedir, message.from_user.id, 19) != "самовывоз"):
         prise += 100
-        textToReturn += ("\n\n" + dataRecieve(basedir, message.from_user.id, 16) + " + 100 = " + str(prise) + "руб")
+        if(discont != "неизвестна скидка" and discont != ""):
+            textToReturn += "\n\nСкидка "+ discont +"%"
+            textToReturn += "\nДоставка 100руб"
+            textToReturn += ("\n" + "Итого: "+ dataRecieve(basedir, message.from_user.id, 16)+" - " + discont + "% " + " + 100 = " + str(int(prise)) + "руб")
+        else:  
+            textToReturn += "\n\nДоставка 100руб."
+            textToReturn += ("\n" + "Итого: "+ dataRecieve(basedir, message.from_user.id, 16) + " + 100 = " + str(prise) + "руб")
     
     else:
-        textToReturn += "\n\n" + str(prise)
-    textToReturn += "\n\n" + "Номер телефона:\n" + dataRecieve(basedir, message.from_user.id, 12)
-    if(dataRecieve(basedir, message.from_user.id, 19) == "доставка"):
-        textToReturn += "\n\n" + "Адрес доставки:\n" + dataRecieve(basedir, message.from_user.id, 13)
-    if(dataRecieve(basedir, message.from_user.id, 19) == "самовывоз"):
-        textToReturn += "\n\n" + "Самовывоз из:\n" + dataRecieve(basedir, message.from_user.id, 20)
-    textToReturn += "\n\n" + "Способ оплаты:\n" + dataRecieve(basedir, message.from_user.id, 14)
-    if(dataRecieve(basedir, message.from_user.id, 15) != ''):
-        textToReturn += "\n\n" + "Комментарий к заказу:\n" + dataRecieve(basedir, message.from_user.id, 15)
+        if(discont != "неизвестна скидка" and discont != ""):
+            textToReturn += "\n\nСкидка "+ discont +"%"
+            textToReturn += ("\n" + "Итого: "+ dataRecieve(basedir, message.from_user.id, 16)+" - " + discont + "% " + " = " + str(int(prise)) + "руб")
+        else:
+            textToReturn += "\n\n" + "Итого: "+ str(int(prise)) + "руб"
 
     return textToReturn
 
@@ -676,7 +696,7 @@ def userBot(basedir):
     textToInsert = "Корзина:\nМеню:\nменю неизвестно\nБизнес-ланчи:\n"
     for i in range(100):
         textToInsert = str(textToInsert + "none:" + str(i) + "\n")
-    userDataLayout = "действие неизвестно\nналичие неоцененного заказа неизвестно\nкатегория бизнес-ланча неизвестен\nсуп неизвестен\nгорячее неизвестно\nгарнир неизвестен\nсалат неизвестен\nхлеб неизвестен\nнапиток неизвестен\nкатегория меню неизвестна\nстраница неизвестна\nномер неизвестен\nадрес доставки неизвестен\nспособ оплаты неизвестен\nкомментарий к заказу неизвестен\nсумма заказа неизвестна\nзаказ неизвестен\nномер сообщения цены неизвестен\nспособ получения неизвестен\nпункт самовывоза неизвестен\n" + textToInsert
+    userDataLayout = "действие неизвестно\nналичие неоцененного заказа неизвестно\nкатегория бизнес-ланча неизвестен\nсуп неизвестен\nгорячее неизвестно\nгарнир неизвестен\nсалат неизвестен\nхлеб неизвестен\nнапиток неизвестен\nкатегория меню неизвестна\nстраница неизвестна\nномер неизвестен\nадрес доставки неизвестен\nспособ оплаты неизвестен\nкомментарий к заказу неизвестен\nсумма заказа неизвестна\nзаказ неизвестен\nномер сообщения цены неизвестен\nспособ получения неизвестен\nпункт самовывоза неизвестен\nнеизвестна сумма заказа за месяц\nнеизвестна скидка\n" + textToInsert
 
     workToken = "6248869227:AAGPNfOpjhIEgYC4opEpUwOouCSpVKEAAEc"
     workbot = telebot.TeleBot(workToken)
@@ -688,7 +708,7 @@ def userBot(basedir):
 
     @bot.message_handler(commands='help')
     def help_message(message):
-        print(message.text)
+        print("Клиентский | " + str(datetime.now())+ " | " + str(message.from_user.id) + " | "+ str(message.text))
 
         file = open(str(basedir) + r'\\Storage\\help.txt', 'r', encoding='utf-8')
         bot.send_message(message.chat.id, text = file.read() .format(message.from_user))
@@ -697,7 +717,7 @@ def userBot(basedir):
     @bot.message_handler(commands='start')
     def start_message(message):
 
-        print(message.text)
+        print("Клиентский | " + str(datetime.now())+ " | " + str(message.from_user.id) + " | "+ str(message.text))
         
         if (os.path.isfile(str(basedir) + r'\\Storage\\users\\' + str(message.from_user.id) + ".txt")) != True:
 
@@ -722,7 +742,8 @@ def userBot(basedir):
     @bot.message_handler(content_types=['text'])
     def main(message):
 
-        print(message.text)
+        print("Клиентский | " + str(datetime.now())+ " | " + str(message.from_user.id) + " | "+ str(message.text))
+
         if (os.path.isfile(str(basedir) + r'\\Storage\\users\\' + str(message.from_user.id) + ".txt")) != True:
             file = open(str(basedir) + r'\\Storage\\users\\' + str(message.from_user.id) + ".txt", 'a', encoding='utf-8')
             file.write(userDataLayout)
@@ -818,7 +839,8 @@ def userBot(basedir):
                 bot.send_message(message.from_user.id, text = order .format(message.from_user),reply_markup=keyboard)
                 
             elif(dataRecieve(basedir, message.from_user.id, 1) == "5 - order" and message.text == "✅ заказать"):
-                order = showOrder(basedir,message,bot)
+                order = "❗ новый заказ ❗"
+                order += showOrder(basedir,message,bot)
                 dataChange(basedir, message.from_user.id, 2, "yes")
 
                 for root, dirs, files in os.walk(basedir + r"\Storage\workers"):  
@@ -830,12 +852,34 @@ def userBot(basedir):
                             except:
                                 continue
                 
-                dataChange(basedir, message.from_user.id, 23, "")
+                dataChange(basedir, message.from_user.id, 25, "")
                 for i in range(100):
-                    if(counting(basedir,message,25 + i,"none") != "1"):
-                        dataChange(basedir, message.from_user.id, 25 + i, "none")
+                    if(counting(basedir,message,27 + i,"none") != "1"):
+                        dataChange(basedir, message.from_user.id, 27 + i, "none")
                     else:
                         break
+                
+                orderPrise = dataRecieve(basedir, message.from_user.id, 16)
+                orderPriseForMounth = dataRecieve(basedir, message.from_user.id, 21)
+                if(orderPriseForMounth == "неизвестна сумма заказа за месяц"):
+                    orderPriseForMounth = 0
+                dataChange(basedir, message.from_user.id, 21, str(int(orderPrise) + int(orderPriseForMounth)))
+                
+                amountDiscont = dataRecieve(basedir, message.from_user.id, 22)
+                if(amountDiscont != "неизвестна скидка" and amountDiscont != ""):
+                    dataChange(basedir, message.from_user.id, 22, "")
+
+                with open (str(basedir) + r'\\Storage\\statistics\\numberOrder.txt', 'r', encoding='utf-8') as file:
+                    numberOrder = int(file.read())
+
+                numberOrder += 1
+
+                with open (str(basedir) + r'\\Storage\\statistics\\numberOrder.txt', 'w', encoding='utf-8') as file:
+                    file.write(str(numberOrder))
+
+                order = " " + dataRecieve(basedir, message.from_user.id, 16)
+                with open (str(basedir) + r'\\Storage\\statistics\\orderAmounts.txt', 'a', encoding='utf-8') as file:
+                    file.write(order)
 
                 bot.send_message(message.from_user.id, text = "✅ заказ оформлен ✅" .format(message.from_user))             
                 bot.send_message(message.from_user.id, text = "В течении 10 минут с вами свяжется оператор для уточнения заказа." .format(message.from_user))
@@ -956,8 +1000,8 @@ def userBot(basedir):
                 if(businessLunch != ""):
                     businessLunch = businessLunch + "!" + str(prise) + "!1"
                     for i in range(100):
-                        if (counting(basedir,message,25 + i,"none") == "1"):
-                            dataChange(basedir, message.from_user.id, 25 + i, businessLunch)
+                        if (counting(basedir,message,27 + i,"none") == "1"):
+                            dataChange(basedir, message.from_user.id, 27 + i, businessLunch)
                             bot.send_message(message.from_user.id, text = "Бизнес-ланч добавлен в корзину" .format(message.from_user))
                             break
                     
@@ -983,7 +1027,7 @@ def userBot(basedir):
 
                 text = ""
 
-                filenames = dataRecieve(basedir, message.from_user.id,23)
+                filenames = dataRecieve(basedir, message.from_user.id,25)
                 if(filenames != "меню неизвестно"): 
                     filenames = filenames.replace(" ",";")
                     filenames = filenames.replace(":"," ")
@@ -994,14 +1038,14 @@ def userBot(basedir):
                     
                     for i in range(len(textNoRepetition)):
                         filename = str(textNoRepetition[i]).replace(";"," ")
-                        count = counting(basedir,message,23,filename)
+                        count = counting(basedir,message,25,filename)
 
                         filename = filename.partition("!")[0]
                         text += ";" + filename + " (" + count + ")" 
 
                 for i in range(100):
-                    if(counting(basedir, message, i + 25, "none") != "1"):
-                        lunch = dataRecieve(basedir, message.from_user.id,i + 25)
+                    if(counting(basedir, message, i + 27, "none") != "1"):
+                        lunch = dataRecieve(basedir, message.from_user.id,i + 27)
                         count = lunch.partition("!")[2].partition("!")[2]
                         
                         dishs = lunch.partition("!")[0]
@@ -1013,11 +1057,11 @@ def userBot(basedir):
                         textNoRepetition = []
                         textNoRepetition.extend(set(dishs))
                         
-                        text += ";;Бизнес-ланч:;"
+                        text += ";;Бизнес-ланч:"
 
                         for o in range(len(textNoRepetition)):
                             
-                            text = text + ";" + textNoRepetition[o].replace(";"," ") + " (" + counting(basedir, message, i + 25, textNoRepetition[o]) + ")"
+                            text = text + ";" + textNoRepetition[o].replace(";"," ") + " (" + counting(basedir, message, i + 27, textNoRepetition[o]) + ")"
                         
                 dataChange(basedir, message.from_user.id, 17, text)
                 dataChange(basedir, message.from_user.id, 16, countingPrise(basedir,message,bot))
@@ -1045,9 +1089,25 @@ def userBot(basedir):
 
     @bot.callback_query_handler(func=lambda call: True)
     def inline(message):
-        print(message.data)
+        print("Клиентский | " + str(datetime.now())+ " | " + str(message.from_user.id) + " | "+ str(message.data))
 
-        if(dataRecieve(basedir, message.from_user.id, 1) == "chooses answer"):
+        if (os.path.isfile(str(basedir) + r'\\Storage\\users\\' + str(message.from_user.id) + ".txt")) != True:
+
+            file = open(str(basedir) + r'\\Storage\\users\\' + str(message.from_user.id) + ".txt", 'a', encoding='utf-8')
+            file.write(userDataLayout)
+            file.close()
+            
+            with open (str(basedir) + r'\\Storage\\startInfo\\1-page.txt', 'r', encoding = "utf-8") as f:
+                infoToReturn = str(f.read())
+
+                keyboard = types.InlineKeyboardMarkup(row_width=1)
+                btn1 = types.InlineKeyboardButton(text = "Продолжить ➡️", callback_data = "education-continue")
+                keyboard.add(btn1)
+                bot.send_message(message.from_user.id, text = infoToReturn .format(message.from_user),reply_markup=keyboard)
+
+            dataChange(basedir, message.from_user.id, 1, "chooses answer")
+
+        elif(dataRecieve(basedir, message.from_user.id, 1) == "chooses answer"):
             if(message.data == "education-yes" or message.data == "education-continue" or message.data == "education-continue_2"):
                 if(message.data == "education-yes"):
 
@@ -1262,13 +1322,16 @@ def userBot(basedir):
                     editPageBusinessLunch(basedir,message,bot)
 
         elif(dataRecieve(basedir, message.from_user.id, 1) == "looking the category" and dataRecieve(basedir, message.from_user.id, 11) == "страница неизвестна"):
+            message.data = message.data.replace("@","")
             pageMenu(basedir,message,bot,1)
 
         elif(dataRecieve(basedir, message.from_user.id, 1) == "looking the menu" and message.data == "further"):
+            message.data = message.data.replace("@","")
             page = int(dataRecieve(basedir, message.from_user.id, 11))
             pageMenu(basedir,message,bot,page + 1)
 
         elif(dataRecieve(basedir, message.from_user.id, 1) == "looking the menu" and message.data == "back"):
+            message.data = message.data.replace("@","")
             page = int(dataRecieve(basedir, message.from_user.id, 11))
             pageMenu(basedir,message,bot,page - 1)
         
@@ -1277,8 +1340,9 @@ def userBot(basedir):
         elif("++" in message.data ):
             afterMessage = message.data
             message.data = message.data.replace("++ ","")
-
-            if("$" in message.data):
+            if("@" in message.data):
+                ...
+            elif("$" in message.data):
                 message.data = int(message.data.replace("$",""))
                 text = dataRecieve(basedir, message.from_user.id, message.data)
                 name = text.partition("!")[0]
@@ -1292,8 +1356,8 @@ def userBot(basedir):
                 basket(basedir, message, bot)
 
             else:
-                textToInsert = dataRecieve(basedir, message.from_user.id, 23)
-                dataChange(basedir,message.from_user.id, 23,str(textToInsert + message.data + ":"))
+                textToInsert = dataRecieve(basedir, message.from_user.id, 25)
+                dataChange(basedir,message.from_user.id, 25,str(textToInsert + message.data + ":"))
 
                 if(dataRecieve(basedir, message.from_user.id, 1) == "basket"):
                     message.data = afterMessage
@@ -1319,8 +1383,8 @@ def userBot(basedir):
                 basket(basedir, message, bot)
             
             else:
-                textToInsert = removeDish(basedir,message, 23, message.data)
-                dataChange(basedir,message.from_user.id, 23,textToInsert)
+                textToInsert = removeDish(basedir,message, 25, message.data)
+                dataChange(basedir,message.from_user.id, 25,textToInsert)
 
                 if(dataRecieve(basedir, message.from_user.id, 1) == "basket"):
                     message.data = afterMessage
@@ -1338,37 +1402,40 @@ def userBot(basedir):
                 dataChange(basedir,message.from_user.id, int(message.data), "none")
                 bot.edit_message_text(chat_id = message.from_user.id, message_id = int(dataRecieve(basedir, message.from_user.id,18)), text = "Итого: " + countingPrise(basedir,message,bot) + "руб")
                 
-                if(dataRecieve(basedir, message.from_user.id, 23) == "" and "none" in dataRecieve(basedir, message.from_user.id, 25)):
+                if((dataRecieve(basedir, message.from_user.id, 25) == ""or dataRecieve(basedir, message.from_user.id, 25) == "меню неизвестно") and "none" in dataRecieve(basedir, message.from_user.id, 27)):
                     bot.delete_message(message.from_user.id, int(dataRecieve(basedir, message.from_user.id, 18)))
                     bot.send_message(message.from_user.id, text = "Ваша корзина пуста!" .format(message.from_user))
                     mainPage(basedir,message,bot)
 
             else:
 
-                count = int(counting(basedir,message,23, message.data))
+                count = int(counting(basedir,message,25, message.data))
                 for i in range(count):
                     
-                    dataChange(basedir,message.from_user.id, 23,removeDish(basedir,message,23,message.data))
+                    dataChange(basedir,message.from_user.id, 25,removeDish(basedir,message,25,message.data))
                 bot.delete_message(message.from_user.id, message.message.id)
                 bot.edit_message_text(chat_id = message.from_user.id, message_id = int(dataRecieve(basedir, message.from_user.id,18)), text = "Итого: " + countingPrise(basedir,message,bot) + "руб")
                 
-                if(dataRecieve(basedir, message.from_user.id, 23) == "" and "none" in dataRecieve(basedir, message.from_user.id, 25)):
+                if((dataRecieve(basedir, message.from_user.id, 25) == "" or dataRecieve(basedir, message.from_user.id, 25) == "меню неизвестно") and "none" in dataRecieve(basedir, message.from_user.id, 27)):
                     bot.delete_message(message.from_user.id, int(dataRecieve(basedir, message.from_user.id, 18)))
                     bot.send_message(message.from_user.id, text = "Ваша корзина пуста!" .format(message.from_user))
                     mainPage(basedir,message,bot)
 
         elif(dataRecieve(basedir, message.from_user.id, 1) == "looking the menu" and dataRecieve(basedir, message.from_user.id, 11) != "страница неизвестна"):
-            if(dataRecieve(basedir, message.from_user.id, 23) == "меню неизвестно"):
-                dataChange(basedir,message.from_user.id, 23,str(message.data + ":"))
-
-                page = int(dataRecieve(basedir, message.from_user.id, 11))
-                pageMenu(basedir,message,bot,page)
+            if("@" in message.data):
+                ...
             else:
-                textToInsert = dataRecieve(basedir, message.from_user.id, 23)
-                dataChange(basedir,message.from_user.id, 23,str(textToInsert + message.data + ":"))
+                if(dataRecieve(basedir, message.from_user.id, 25) == "меню неизвестно"):
+                    dataChange(basedir,message.from_user.id, 25,str(message.data + ":"))
 
-                page = int(dataRecieve(basedir, message.from_user.id, 11))
-                pageMenu(basedir,message,bot,page)
+                    page = int(dataRecieve(basedir, message.from_user.id, 11))
+                    pageMenu(basedir,message,bot,page)
+                else:
+                    textToInsert = dataRecieve(basedir, message.from_user.id, 25)
+                    dataChange(basedir,message.from_user.id, 25,str(textToInsert + message.data + ":"))
+
+                    page = int(dataRecieve(basedir, message.from_user.id, 11))
+                    pageMenu(basedir,message,bot,page)
         
         elif(dataRecieve(basedir, message.from_user.id, 1) == "evaluates" and dataRecieve(basedir, message.from_user.id, 2) == "yes"):
 
@@ -1380,7 +1447,7 @@ def userBot(basedir):
             with open(str(basedir) + r'\\Storage\\statistics\\evaluations.txt', 'w', encoding='utf-8') as file:
                 file.write(pastText)
                 
-            #dataChange(basedir, message.from_user.id, 2, "no")
+            dataChange(basedir, message.from_user.id, 2, "no")
             bot.send_message(message.from_user.id, text = "Спасибо, ваше мнение очень важно для нас!" .format(message.from_user))
             mainPage(basedir,message,bot)
 
