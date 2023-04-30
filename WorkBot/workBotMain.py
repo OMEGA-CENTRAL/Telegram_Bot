@@ -359,8 +359,8 @@ def editBusinessLunch(basedir, message, bot):
 
 def workBot(basedir):
     
-    password = ""
-    
+    password = ":yakub2007"
+    print("Рабочий бот запущен")
     userDataLayout = "статус неизвестен\nдействие неизвестно\nпункт меню неизвестен\nнеизвестное имя блюда\nнеизвестная граммовка блюда\nнеизвестная цена блюда\n"
 
 
