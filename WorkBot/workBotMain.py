@@ -9,23 +9,23 @@ def dataChange(basedir, IDforChange, lineNumberToChange, replacementText):
 
     replacementText = replacementText + str(hex(lineNumberToChange)) +"\n"
 
-    with open(str(basedir) + r'\\Storage\\workers\\' + str(IDforChange)+ ".txt", 'r', encoding='utf-8') as file:              
+    with open(str(basedir) + r'/Storage/workers/' + str(IDforChange)+ ".txt", 'r', encoding='utf-8') as file:              
         for i in range(lineNumberToChange):
             lineToChange = file.readline()
         file.close()
     
-    with open (str(basedir) + r'\\Storage\\workers\\' + str(IDforChange)+".txt", 'r', encoding='utf-8') as f:
+    with open (str(basedir) + r'/Storage/workers/' + str(IDforChange)+".txt", 'r', encoding='utf-8') as f:
         old_data = f.read()
     
     new_data = old_data.replace(lineToChange, replacementText)
     
-    with open (str(basedir) + r'\\Storage\\workers\\' + str(IDforChange) + ".txt", 'w', encoding='utf-8') as f:
+    with open (str(basedir) + r'/Storage/workers/' + str(IDforChange) + ".txt", 'w', encoding='utf-8') as f:
         f.write(new_data)
 
 
 def dataRecieve(basedir, IDforRecieve, lineNumberToRecieve):
 
-    file = open(str(basedir) + r'\\Storage\\workers\\' + str(IDforRecieve)+".txt", 'r', encoding='utf-8')
+    file = open(str(basedir) + r'/Storage/workers/' + str(IDforRecieve)+".txt", 'r', encoding='utf-8')
     for i in range(lineNumberToRecieve):
         lineToReturn = file.readline()
     file.close()
@@ -44,7 +44,7 @@ def categoryMenu(basedir, message, bot):
 
     log  = (str(datetime.now()) + ' Редактируется меню пользователем рабочего бота с ID: ' + str(message.from_user.id) + '\n')
 
-    logs = open(str(basedir) + r'\Storage\logs.txt', 'a')
+    logs = open(str(basedir) + r'/Storage/logs.txt', 'a')
     logs.write(log)
     logs.close()
 
@@ -61,7 +61,7 @@ def categoryMenu(basedir, message, bot):
     filenames = []
     amount = 0
 
-    for root, dirs, files in os.walk(basedir + r"\Storage\images"):  
+    for root, dirs, files in os.walk(basedir + r"/Storage/images"):  
         for dirname in dirs:
 
             amount += 1
@@ -163,7 +163,7 @@ def categoryMenu(basedir, message, bot):
 def editCategory(basedir, message, bot):
     log  = (str(datetime.now()) + ' Редактируется категория ' + message.data +' пользователем рабочего бота с ID: ' + str(message.from_user.id) + '\n')
 
-    logs = open(str(basedir) + r'\Storage\logs.txt', 'a', encoding='utf-8')
+    logs = open(str(basedir) + r'/Storage/logs.txt', 'a', encoding='utf-8')
     logs.write(log)
     logs.close()
 
@@ -190,10 +190,10 @@ def editCategory(basedir, message, bot):
 
     keyboard = types.InlineKeyboardMarkup(row_width=2)
 
-    for root, dirs, files in os.walk(basedir + r"\Storage\images\\" + dirname):  
+    for root, dirs, files in os.walk(basedir + r"/Storage/images/" + dirname):  
         for filename in files:
 
-            file = open(str(basedir) + r'\\Storage\\images\\'+ dirname +"\\"+ filename , "rb")
+            file = open(str(basedir) + r'/Storage/images/'+ dirname +"/"+ filename , "rb")
 
             callbackData = filename
 
@@ -218,13 +218,13 @@ def editPromotion(basedir,message,bot):
     btn1 = types.KeyboardButton("🗑 удалить акцию")
     btn2 = types.KeyboardButton("◀ назад")
                     
-    if (os.path.isfile(str(basedir) + r'\\Storage\\promotion.txt')) == True:
+    if (os.path.isfile(str(basedir) + r'/Storage/promotion.txt')) == True:
         keyboard.row(btn1)
 
     keyboard.row(btn2)
 
-    if (os.path.isfile(str(basedir) + r'\\Storage\\promotion.txt')) == True:
-        with open(str(basedir) + r'\\Storage\\promotion.txt', 'r', encoding='utf-8') as file:
+    if (os.path.isfile(str(basedir) + r'/Storage/promotion.txt')) == True:
+        with open(str(basedir) + r'/Storage/promotion.txt', 'r', encoding='utf-8') as file:
             promotion = file.read()
             bot.send_message(message.chat.id, text= "Текущая акция: \n\n" + promotion .format(message.from_user), reply_markup=keyboard)
         bot.send_message(message.chat.id, text= "⬇️ Напишите новую акцию ⬇️" .format(message.from_user), reply_markup=keyboard)
@@ -237,7 +237,7 @@ def editBusinessLunch(basedir, message, bot):
 
     log  = (str(datetime.now()) + ' Редактируется бизнес-ланч пользователем рабочего бота с ID: ' + str(message.from_user.id) + '\n')
 
-    logs = open(str(basedir) + r'\Storage\logs.txt', 'a')
+    logs = open(str(basedir) + r'/Storage/logs.txt', 'a')
     logs.write(log)
     logs.close()
 
@@ -250,17 +250,17 @@ def editBusinessLunch(basedir, message, bot):
     bot.send_message(message.from_user.id, text= "⬇️ Настройте бизнес-ланч ⬇️" .format(message.from_user), reply_markup=keyboard)
 
     filenames = []
-    for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\soups"):  
+    for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/soups"):  
         for filename in files:
             filenames.append(filename)
 
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     if(len(filenames) == 1):
-        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"\\soups\\" + filenames[0])
+        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"/soups/" + filenames[0])
         keyboard.add(btn1)
     elif(len(filenames) == 2):
-        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"\\soups\\" + filenames[0])
-        btn2 = types.InlineKeyboardButton(text = "Удалить: " + filenames[1], callback_data = r"\\soups\\" + filenames[1])
+        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"/soups/" + filenames[0])
+        btn2 = types.InlineKeyboardButton(text = "Удалить: " + filenames[1], callback_data = r"/soups/" + filenames[1])
         keyboard.add(btn1,btn2)
     if(len(filenames) < 2):
         btn3 = types.InlineKeyboardButton(text = "➕ Добавить суп", callback_data = "addSoups")
@@ -268,17 +268,17 @@ def editBusinessLunch(basedir, message, bot):
     bot.send_message(message.from_user.id, text= "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n                        Супы:\n______________________________" .format(message.from_user), reply_markup=keyboard)
     
     filenames = []
-    for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\firstCourse"):  
+    for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/firstCourse"):  
         for filename in files:
             filenames.append(filename)
 
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     if(len(filenames) == 1):
-        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"\\firstCourse\\" + filenames[0])
+        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"/firstCourse/" + filenames[0])
         keyboard.add(btn1)
     elif(len(filenames) == 2):
-        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"\\firstCourse\\" + filenames[0])
-        btn2 = types.InlineKeyboardButton(text = "Удалить: " + filenames[1], callback_data = r"\\firstCourse\\" + filenames[1])
+        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"/firstCourse/" + filenames[0])
+        btn2 = types.InlineKeyboardButton(text = "Удалить: " + filenames[1], callback_data = r"/firstCourse/" + filenames[1])
         keyboard.add(btn1,btn2)
     if(len(filenames) < 2):
         btn3 = types.InlineKeyboardButton(text = "➕ Добавить горячее", callback_data = "addFirstCourse")
@@ -286,17 +286,17 @@ def editBusinessLunch(basedir, message, bot):
     bot.send_message(message.from_user.id, text= "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n                      Горячее:\n______________________________" .format(message.from_user), reply_markup=keyboard)
 
     filenames = []
-    for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\garnish"):  
+    for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/garnish"):  
         for filename in files:
             filenames.append(filename)
 
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     if(len(filenames) == 1):
-        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"\\garnish\\" + filenames[0])
+        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"/garnish/" + filenames[0])
         keyboard.add(btn1)
     elif(len(filenames) == 2):
-        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"\\garnish\\" + filenames[0])
-        btn2 = types.InlineKeyboardButton(text = "Удалить: " + filenames[1], callback_data = r"\\garnish\\" + filenames[1])
+        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"/garnish/" + filenames[0])
+        btn2 = types.InlineKeyboardButton(text = "Удалить: " + filenames[1], callback_data = r"/garnish/" + filenames[1])
         keyboard.add(btn1,btn2)
     if(len(filenames) < 2):
         btn3 = types.InlineKeyboardButton(text = "➕ Добавить гарнир", callback_data = "addGarnish")
@@ -304,17 +304,17 @@ def editBusinessLunch(basedir, message, bot):
     bot.send_message(message.from_user.id, text= "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n                      Гарниры:\n______________________________" .format(message.from_user), reply_markup=keyboard)
 
     filenames = []
-    for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\salad"):  
+    for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/salad"):  
         for filename in files:
             filenames.append(filename)
 
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     if(len(filenames) == 1):
-        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"\\salad\\" + filenames[0])
+        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"/salad/" + filenames[0])
         keyboard.add(btn1)
     elif(len(filenames) == 2):
-        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"\\salad\\" + filenames[0])
-        btn2 = types.InlineKeyboardButton(text = "Удалить: " + filenames[1], callback_data = r"\\salad\\" + filenames[1])
+        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"/salad/" + filenames[0])
+        btn2 = types.InlineKeyboardButton(text = "Удалить: " + filenames[1], callback_data = r"/salad/" + filenames[1])
         keyboard.add(btn1,btn2)
     if(len(filenames) < 2):
         btn3 = types.InlineKeyboardButton(text = "➕ Добавить салат", callback_data = "addSalad")
@@ -322,17 +322,17 @@ def editBusinessLunch(basedir, message, bot):
     bot.send_message(message.from_user.id, text= "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n                      Салаты:\n______________________________" .format(message.from_user), reply_markup=keyboard)
 
     filenames = []
-    for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\bread"):  
+    for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/bread"):  
         for filename in files:
             filenames.append(filename)
 
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     if(len(filenames) == 1):
-        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"\\bread\\" + filenames[0])
+        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"/bread/" + filenames[0])
         keyboard.add(btn1)
     elif(len(filenames) == 2):
-        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"\\bread\\" + filenames[0])
-        btn2 = types.InlineKeyboardButton(text = "Удалить: " + filenames[1], callback_data = r"\\bread\\" + filenames[1])
+        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"/bread/" + filenames[0])
+        btn2 = types.InlineKeyboardButton(text = "Удалить: " + filenames[1], callback_data = r"/bread/" + filenames[1])
         keyboard.add(btn1,btn2)
     if(len(filenames) < 2):
         btn3 = types.InlineKeyboardButton(text = "➕ Добавить хлеб", callback_data = "addBread")
@@ -340,17 +340,17 @@ def editBusinessLunch(basedir, message, bot):
     bot.send_message(message.from_user.id, text= "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n                       Хлеба:\n______________________________" .format(message.from_user), reply_markup=keyboard)
 
     filenames = []
-    for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\drink"):  
+    for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/drink"):  
         for filename in files:
             filenames.append(filename)
 
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     if(len(filenames) == 1):
-        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"\\drink\\" + filenames[0])
+        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"/drink/" + filenames[0])
         keyboard.add(btn1)
     elif(len(filenames) == 2):
-        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"\\drink\\" + filenames[0])
-        btn2 = types.InlineKeyboardButton(text = "Удалить: " + filenames[1], callback_data = r"\\drink\\" + filenames[1])
+        btn1 = types.InlineKeyboardButton(text = "Удалить: " + filenames[0], callback_data = r"/drink/" + filenames[0])
+        btn2 = types.InlineKeyboardButton(text = "Удалить: " + filenames[1], callback_data = r"/drink/" + filenames[1])
         keyboard.add(btn1,btn2)
     if(len(filenames) < 2):
         btn3 = types.InlineKeyboardButton(text = "➕ Добавить напиток", callback_data = "addDrink")
@@ -379,13 +379,13 @@ def workBot(basedir):
         
         log  = (str(datetime.now()) + ' Нажат старт пользователем с ID: ' + str(message.from_user.id) + '\n')
 
-        logs = open(str(basedir) + r'\Storage\logs.txt', 'a')
+        logs = open(str(basedir) + r'/Storage/logs.txt', 'a')
         logs.write(log)
         logs.close()
 
-        if (os.path.isfile(str(basedir) + r'\\Storage\\workers\\' + str(message.from_user.id) + ".txt")) != True:
+        if (os.path.isfile(str(basedir) + r'/Storage/workers/' + str(message.from_user.id) + ".txt")) != True:
 
-            file = open(str(basedir) + r'\\Storage\\workers\\' + str(message.from_user.id) + ".txt", 'a', encoding='utf-8')
+            file = open(str(basedir) + r'/Storage/workers/' + str(message.from_user.id) + ".txt", 'a', encoding='utf-8')
             file.write(userDataLayout)
             file.close()
             
@@ -393,7 +393,7 @@ def workBot(basedir):
 
             log  = (str(datetime.now()) + ' Создан пользователь рабочего бота с ID: ' + str(message.from_user.id) + '\n')
 
-            logs = open(str(basedir) + r'\Storage\logs.txt', 'a')
+            logs = open(str(basedir) + r'/Storage/logs.txt', 'a')
             logs.write(log)
             logs.close()
 
@@ -406,13 +406,13 @@ def workBot(basedir):
         
         print("Рабочий | " + str(datetime.now())+ " | " + str(message.from_user.id) + " | "+ str(message.text))
         
-        if (os.path.isfile(str(basedir) + r'\\Storage\\workers\\' + str(message.from_user.id) + ".txt")) != True:
+        if (os.path.isfile(str(basedir) + r'/Storage/workers/' + str(message.from_user.id) + ".txt")) != True:
             bot.send_message(message.chat.id, text= "❗️ Неидентифицированный пользователь ❗️" .format(message.from_user), reply_markup=markup)
             bot.send_message(message.chat.id, text= "❗️ Нажмите /start для идентификации ❗️" .format(message.from_user), reply_markup=markup)
 
             log  = (str(datetime.now()) + ' Неидентифицированый пользователь с ID: ' + str(message.from_user.id) + '\n')
 
-            logs = open(str(basedir) + r'\Storage\logs.txt', 'a')
+            logs = open(str(basedir) + r'/Storage/logs.txt', 'a')
             logs.write(log)
             logs.close()
 
@@ -458,18 +458,18 @@ def workBot(basedir):
 
                     folderName = dataRecieve(basedir, message.from_user.id, 3)
 
-                    for root, dirs, files in os.walk(basedir + r"\Storage\images\\" + folderName):  
+                    for root, dirs, files in os.walk(basedir + r"/Storage/images/" + folderName):  
                         for filename in files:
-                            os.remove(basedir + r"\Storage\images\\" + folderName + "\\" + filename)
+                            os.remove(basedir + r"/Storage/images/" + folderName + "/" + filename)
 
-                    os.rmdir(basedir + r"\Storage\images\\" + folderName)
+                    os.rmdir(basedir + r"/Storage/images/" + folderName)
 
                     distributionAlgorithm.distribution(basedir,folderName)
-                    os.rmdir(basedir + r"\Storage\imagesForClients\\" + folderName)
+                    os.rmdir(basedir + r"/Storage/imagesForClients/" + folderName)
 
                     log  = (str(datetime.now()) + ' Удалена категория '+ folderName +' пользователем рабочего бота с ID: ' + str(message.from_user.id) + '\n')
 
-                    logs = open(str(basedir) + r'\Storage\logs.txt', 'a', encoding='utf-8')
+                    logs = open(str(basedir) + r'/Storage/logs.txt', 'a', encoding='utf-8')
                     logs.write(log)
                     logs.close()
 
@@ -477,29 +477,29 @@ def workBot(basedir):
 
                 elif(message.text == "🗑 удалить всё" and (dataRecieve(basedir, message.from_user.id, 2) == "edit business lunch")):
                      
-                    for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\\soups"):  
+                    for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/soups"):  
                         for filename in files:
-                            os.remove(basedir + r"\Storage\businessLunch\\soups\\" + filename)
+                            os.remove(basedir + r"/Storage/businessLunch/soups/" + filename)
 
-                    for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\\firstCours"):  
+                    for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/firstCours"):  
                         for filename in files:
-                            os.remove(basedir + r"\Storage\businessLunch\\firstCours\\" + filename)
+                            os.remove(basedir + r"/Storage/businessLunch/firstCours/" + filename)
 
-                    for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\\garnish"):  
+                    for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/garnish"):  
                         for filename in files:
-                            os.remove(basedir + r"\Storage\businessLunch\\garnish\\" + filename)
+                            os.remove(basedir + r"/Storage/businessLunch/garnish/" + filename)
 
-                    for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\\salad"):  
+                    for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/salad"):  
                         for filename in files:
-                            os.remove(basedir + r"\Storage\businessLunch\\salad\\" + filename)
+                            os.remove(basedir + r"/Storage/businessLunch/salad/" + filename)
                     
-                    for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\\bread"):  
+                    for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/bread"):  
                         for filename in files:
-                            os.remove(basedir + r"\Storage\businessLunch\\bread\\" + filename)
+                            os.remove(basedir + r"/Storage/businessLunch/bread/" + filename)
                     
-                    for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\\drink"):  
+                    for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/drink"):  
                         for filename in files:
-                            os.remove(basedir + r"\Storage\businessLunch\\drink\\" + filename)
+                            os.remove(basedir + r"/Storage/businessLunch/drink/" + filename)
                             
                     editBusinessLunch(basedir, message, bot)
                  
@@ -507,11 +507,11 @@ def workBot(basedir):
                     dataChange(basedir, message.from_user.id, 2, "after mailing")
                     keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
                     
-                    with open(str(basedir) + r'\Storage\mailing.txt', "r", encoding='utf-8') as document:
+                    with open(str(basedir) + r'/Storage/mailing.txt', "r", encoding='utf-8') as document:
                         mailing = document.read()
 
                     amount = 0
-                    for root, dirs, files in os.walk(basedir + r"\Storage\users"):  
+                    for root, dirs, files in os.walk(basedir + r"/Storage/users"):  
                         for filename in files:
                             id = filename.replace(".txt","")
                             try:
@@ -530,10 +530,10 @@ def workBot(basedir):
 
                     dataChange(basedir, message.from_user.id, 2, "waiting for confirmation")
 
-                    with open(str(basedir) + r'\Storage\mailing.txt', "w", encoding='utf-8') as document:
+                    with open(str(basedir) + r'/Storage/mailing.txt', "w", encoding='utf-8') as document:
                         document.write(message.text)
 
-                    with open(str(basedir) + r'\Storage\mailing.txt', "r", encoding='utf-8') as document:
+                    with open(str(basedir) + r'/Storage/mailing.txt', "r", encoding='utf-8') as document:
                         textToReturn = document.read()
 
                     btn1 = ("◀ назад")
@@ -547,12 +547,12 @@ def workBot(basedir):
                     current_datetime = datetime.now()
                     text = ''
                     numberUsers = 0
-                    for root, dirs, files in os.walk(basedir + r"\Storage\users"):  
+                    for root, dirs, files in os.walk(basedir + r"/Storage/users"):  
                             for file in files:
                                 numberUsers += 1
                     text += "< Общая статистика >\n"+"Число пользователей: " + str(numberUsers)
                     #
-                    with open(str(basedir) + r'\\Storage\\statistics\\evaluations.txt', 'r', encoding='utf-8') as file:              
+                    with open(str(basedir) + r'/Storage/statistics/evaluations.txt', 'r', encoding='utf-8') as file:              
                         reviews = file.read()
                     
                     averageRating = 0
@@ -576,31 +576,31 @@ def workBot(basedir):
                         mouth = str(current_datetime.month)
 
                     text += "\n\n< Статистика за " + mouth + "/" + str(current_datetime.year)+" >"
-                    with open(str(basedir) + r'\\Storage\\statistics\\users.txt', 'r', encoding='utf-8') as file:              
+                    with open(str(basedir) + r'/Storage/statistics/users.txt', 'r', encoding='utf-8') as file:              
                         newUsers = file.read()
                     
                     text += "\nНовых пользователей: " + str(newUsers)
 
                     #
 
-                    with open(str(basedir) + r'\\Storage\\statistics\\numberOrderLastMouth.txt', 'r', encoding='utf-8') as file:              
+                    with open(str(basedir) + r'/Storage/statistics/numberOrderLastMouth.txt', 'r', encoding='utf-8') as file:              
                         numberOrderLastMouth = file.read()
 
                     text +="\nКоличество заказов: " + numberOrderLastMouth
                     
                     #
 
-                    with open(str(basedir) + r'\\Storage\\statistics\\averageCheckLastMouth.txt', 'r', encoding='utf-8') as file:              
+                    with open(str(basedir) + r'/Storage/statistics/averageCheckLastMouth.txt', 'r', encoding='utf-8') as file:              
                         averageOrderLastMouth = file.read()
 
                     text +="\nСредний чек: " + averageOrderLastMouth + "руб"
                     
                     #
 
-                    with open(str(basedir) + r'\\Storage\\statistics\\amountsDiscont.txt', 'r', encoding='utf-8') as file:              
+                    with open(str(basedir) + r'/Storage/statistics/amountsDiscont.txt', 'r', encoding='utf-8') as file:              
                         amountsDisconts = file.read()
                     
-                    with open(str(basedir) + r'\\Storage\\minimumOrderAmount.txt', 'r', encoding='utf-8') as file:              
+                    with open(str(basedir) + r'/Storage/minimumOrderAmount.txt', 'r', encoding='utf-8') as file:              
                         minimumOrderAmount = file.read()
 
                     text +="\nПользователей заказавших меньше чем на " + minimumOrderAmount+ "руб. " + str(amountsDisconts) + " из " + str(numberUsers)
@@ -621,7 +621,7 @@ def workBot(basedir):
                     keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
                     dataChange(basedir, message.from_user.id, 2, "edit business lunch prise")
 
-                    with open(str(basedir) + r'\Storage\businessLunchPrise.txt', "r", encoding='utf-8') as document:
+                    with open(str(basedir) + r'/Storage/businessLunchPrise.txt', "r", encoding='utf-8') as document:
                         textToReturn = document.read()
                     
                     btn1 = ("◀ назад")
@@ -641,19 +641,19 @@ def workBot(basedir):
 
                 elif(dataRecieve(basedir, message.from_user.id, 2) == "create category"):
 
-                    if (os.path.exists(basedir + "\\Storage\\images\\" + message.text) != True):
+                    if (os.path.exists(basedir + "/Storage/images/" + message.text) != True):
                         amount = 0
-                        for root, dirs, files in os.walk(basedir + r"\Storage\images"):  
+                        for root, dirs, files in os.walk(basedir + r"/Storage/images"):  
                             for dirname in dirs:
                                 amount += 1
                                 
                         if (amount < 14):
-                            os.mkdir(basedir + "\\Storage\\images\\" + message.text)
-                            os.mkdir(basedir + "\\Storage\\imagesForClients\\" + message.text)
+                            os.mkdir(basedir + "/Storage/images/" + message.text)
+                            os.mkdir(basedir + "/Storage/imagesForClients/" + message.text)
 
                             log  = (str(datetime.now()) + ' Создана новая категория меню пользователем рабочего бота с ID: ' + str(message.from_user.id) + '\n')
 
-                            logs = open(str(basedir) + r'\Storage\logs.txt', 'a')
+                            logs = open(str(basedir) + r'/Storage/logs.txt', 'a')
                             logs.write(log)
                             logs.close()
 
@@ -679,12 +679,12 @@ def workBot(basedir):
                     editPromotion(basedir,message,bot)
 
                 elif(message.text == "🗑 удалить акцию" and dataRecieve(basedir, message.from_user.id, 2) == "edit promotion"):
-                    os.remove(str(basedir) + r'\\Storage\\promotion.txt')
+                    os.remove(str(basedir) + r'/Storage/promotion.txt')
                     bot.send_message(message.chat.id, text= "Акция удалена" .format(message.from_user))
 
                     log  = (str(datetime.now()) + ' Удалена акция пользователем рабочего бота с ID: ' + str(message.from_user.id) + '\n')
 
-                    logs = open(str(basedir) + r'\Storage\logs.txt', 'a')
+                    logs = open(str(basedir) + r'/Storage/logs.txt', 'a')
                     logs.write(log)
                     logs.close()
 
@@ -694,11 +694,11 @@ def workBot(basedir):
 
                     log  = (str(datetime.now()) + ' Изменена акция пользователем рабочего бота с ID: ' + str(message.from_user.id) + '\n')
 
-                    logs = open(str(basedir) + r'\Storage\logs.txt', 'a')
+                    logs = open(str(basedir) + r'/Storage/logs.txt', 'a')
                     logs.write(log)
                     logs.close()
 
-                    with open (str(basedir) + r'\\Storage\\promotion.txt', 'w', encoding='utf-8') as file:
+                    with open (str(basedir) + r'/Storage/promotion.txt', 'w', encoding='utf-8') as file:
                         file.write(message.text)
                     editPromotion(basedir,message,bot)
 
@@ -718,27 +718,27 @@ def workBot(basedir):
                     bot.send_message(message.chat.id, text= "4⃣ Отправьте фотографию блюда." .format(message.from_user))
 
                 elif(dataRecieve(basedir, message.from_user.id, 2) == "addSoups"):
-                    with open(str(basedir) + r'\\Storage\\businessLunch\\soups\\' + message.text, 'w', encoding='utf-8') as file:
+                    with open(str(basedir) + r'/Storage/businessLunch/soups/' + message.text, 'w', encoding='utf-8') as file:
                         editBusinessLunch(basedir, message, bot)
 
                 elif(dataRecieve(basedir, message.from_user.id, 2) == "addFirstCourse"):
-                    with open(str(basedir) + r'\\Storage\\businessLunch\\firstCourse\\' + message.text, 'w', encoding='utf-8') as file:
+                    with open(str(basedir) + r'/Storage/businessLunch/firstCourse/' + message.text, 'w', encoding='utf-8') as file:
                         editBusinessLunch(basedir, message, bot)
 
                 elif(dataRecieve(basedir, message.from_user.id, 2) == "addGarnish"):
-                    with open(str(basedir) + r'\\Storage\\businessLunch\\garnish\\' + message.text, 'w', encoding='utf-8') as file:
+                    with open(str(basedir) + r'/Storage/businessLunch/garnish/' + message.text, 'w', encoding='utf-8') as file:
                         editBusinessLunch(basedir, message, bot)
 
                 elif(dataRecieve(basedir, message.from_user.id, 2) == "addSalad"):
-                    with open(str(basedir) + r'\\Storage\\businessLunch\\salad\\' + message.text, 'w', encoding='utf-8') as file:
+                    with open(str(basedir) + r'/Storage/businessLunch/salad/' + message.text, 'w', encoding='utf-8') as file:
                         editBusinessLunch(basedir, message, bot)
 
                 elif(dataRecieve(basedir, message.from_user.id, 2) == "addBread"):
-                    with open(str(basedir) + r'\\Storage\\businessLunch\\bread\\' + message.text, 'w', encoding='utf-8') as file:
+                    with open(str(basedir) + r'/Storage/businessLunch/bread/' + message.text, 'w', encoding='utf-8') as file:
                         editBusinessLunch(basedir, message, bot)
 
                 elif(dataRecieve(basedir, message.from_user.id, 2) == "addDrink"):
-                    with open(str(basedir) + r'\\Storage\\businessLunch\\drink\\' + message.text, 'w', encoding='utf-8') as file:
+                    with open(str(basedir) + r'/Storage/businessLunch/drink/' + message.text, 'w', encoding='utf-8') as file:
                         editBusinessLunch(basedir, message, bot)
 
             elif (dataRecieve(basedir, message.from_user.id, 2) == "enters password" and message.text == password):
@@ -764,7 +764,7 @@ def workBot(basedir):
                 
                 log  = (str(datetime.now()) + ' Выполнен вход пользователем в рабочего бота с ID: ' + str(message.from_user.id) + '\n')
 
-                logs = open(str(basedir) + r'\Storage\logs.txt', 'a')
+                logs = open(str(basedir) + r'/Storage/logs.txt', 'a')
                 logs.write(log)
                 logs.close()
 
@@ -774,7 +774,7 @@ def workBot(basedir):
 
                 log  = (str(datetime.now()) + ' Введен неверный пароль пользователем рабочего бота с ID: ' + str(message.from_user.id) + '\n')
 
-                logs = open(str(basedir) + r'\Storage\logs.txt', 'a')
+                logs = open(str(basedir) + r'/Storage/logs.txt', 'a')
                 logs.write(log)
                 logs.close()
 
@@ -789,7 +789,7 @@ def workBot(basedir):
 
             log  = (str(datetime.now()) + ' Создаётся новая категория меню пользователем рабочего бота с ID: ' + str(message.from_user.id) + '\n')
 
-            logs = open(str(basedir) + r'\Storage\logs.txt', 'a')
+            logs = open(str(basedir) + r'/Storage/logs.txt', 'a')
             logs.write(log)
             logs.close()
 
@@ -799,11 +799,11 @@ def workBot(basedir):
         elif(dataRecieve(basedir, message.from_user.id, 2) == "edit category"):
 
             folderName = dataRecieve(basedir, message.from_user.id, 3)
-            os.remove(basedir + r"\Storage\images\\" + folderName + "\\" + message.data)
+            os.remove(basedir + r"/Storage/images/" + folderName + "/" + message.data)
 
             log  = (str(datetime.now()) + ' Удален файл ' + message.data + ' пользователем рабочего бота с ID: ' + str(message.from_user.id) + '\n')
 
-            logs = open(str(basedir) + r'\Storage\logs.txt', 'a', encoding='utf-8')
+            logs = open(str(basedir) + r'/Storage/logs.txt', 'a', encoding='utf-8')
             logs.write(log)
             logs.close()
 
@@ -842,7 +842,7 @@ def workBot(basedir):
                 bot.send_message(message.from_user.id, text= "⬇️ Напишите напиток ⬇️" .format(message.from_user))
             
             else:
-                os.remove(basedir + r"\Storage\businessLunch" + message.data)
+                os.remove(basedir + r"/Storage/businessLunch" + message.data)
                 editBusinessLunch(basedir, message, bot)
 
     @bot.message_handler(content_types=['photo'])
@@ -856,7 +856,7 @@ def workBot(basedir):
             fileID = message.photo[-1].file_id   
             file_info = bot.get_file(fileID)
             downloaded_file = bot.download_file(file_info.file_path)
-            with open(str(basedir) + r'\\Storage\\images\\' + dataRecieve(basedir, message.from_user.id, 3) + "\\" + name + "!" + gramm + "!" + ruble + ".jpg", 'wb') as new_file:
+            with open(str(basedir) + r'/Storage/images/' + dataRecieve(basedir, message.from_user.id, 3) + "/" + name + "!" + gramm + "!" + ruble + ".jpg", 'wb') as new_file:
                 new_file.write(downloaded_file)
             
             message.data = dataRecieve(basedir, message.from_user.id, 3)
