@@ -8,23 +8,23 @@ def dataChange(basedir, IDforChange, lineNumberToChange, replacementText):
 
     replacementText = replacementText + str(hex(lineNumberToChange)) +"\n"
 
-    with open(str(basedir) + r'\\Storage\\users\\' + str(IDforChange)+ ".txt", 'r', encoding='utf-8') as file:              
+    with open(str(basedir) + r'/Storage/users/' + str(IDforChange)+ ".txt", 'r', encoding='utf-8') as file:              
         for i in range(lineNumberToChange):
             lineToChange = file.readline()
         file.close()
     
-    with open (str(basedir) + r'\\Storage\\users\\' + str(IDforChange)+".txt", 'r', encoding='utf-8') as f:
+    with open (str(basedir) + r'/Storage/users/' + str(IDforChange)+".txt", 'r', encoding='utf-8') as f:
         old_data = f.read()
     
     new_data = old_data.replace(lineToChange, replacementText)
     
-    with open (str(basedir) + r'\\Storage\\users\\' + str(IDforChange) + ".txt", 'w', encoding='utf-8') as f:
+    with open (str(basedir) + r'/Storage/users/' + str(IDforChange) + ".txt", 'w', encoding='utf-8') as f:
         f.write(new_data)
 
 
 def dataRecieve(basedir, IDforRecieve, lineNumberToRecieve):
 
-    file = open(str(basedir) + r'\\Storage\\users\\' + str(IDforRecieve)+".txt", 'r', encoding='utf-8')
+    file = open(str(basedir) + r'/Storage/users/' + str(IDforRecieve)+".txt", 'r', encoding='utf-8')
     for i in range(lineNumberToRecieve):
         lineToReturn = file.readline()
     file.close()
@@ -50,7 +50,7 @@ def mainPage(basedir, message, bot):
         telebot.types.BotCommand("/start", "🔄 Перезапустить бота"),
     ])
 
-    if (os.path.isfile(str(basedir) + r'\\Storage\\promotion.txt')) == True:
+    if (os.path.isfile(str(basedir) + r'/Storage/promotion.txt')) == True:
         keyboard.row(btn1)
     keyboard.row(btn2,btn3)
     keyboard.row(btn4)
@@ -66,7 +66,7 @@ def pageBusinessLunch(basedir, message, bot):
         
 
         filenames = []
-        for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\soups"):  
+        for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/soups"):  
             for filename in files:
                 filenames.append(filename)
         
@@ -287,7 +287,7 @@ def editPageBusinessLunch(basedir, message, bot):
     if(dataRecieve(basedir, message.from_user.id,3) == "soups"):
 
         filenames = []
-        for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\soups"):  
+        for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/soups"):  
             for filename in files:
                 filenames.append(filename)
         
@@ -310,7 +310,7 @@ def editPageBusinessLunch(basedir, message, bot):
         
     elif(dataRecieve(basedir, message.from_user.id,3) == "firstCourse"):
         filenames = []
-        for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\firstCourse"):  
+        for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/firstCourse"):  
             for filename in files:
                 filenames.append(filename)
         
@@ -333,7 +333,7 @@ def editPageBusinessLunch(basedir, message, bot):
 
     elif(dataRecieve(basedir, message.from_user.id,3) == "garnish"):
         filenames = []
-        for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\garnish"):  
+        for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/garnish"):  
             for filename in files:
                 filenames.append(filename)
         
@@ -356,7 +356,7 @@ def editPageBusinessLunch(basedir, message, bot):
 
     elif(dataRecieve(basedir, message.from_user.id,3) == "salad"):
         filenames = []
-        for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\salad"):  
+        for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/salad"):  
             for filename in files:
                 filenames.append(filename)
         
@@ -379,7 +379,7 @@ def editPageBusinessLunch(basedir, message, bot):
     
     elif(dataRecieve(basedir, message.from_user.id,3) == "bread"):
         filenames = []
-        for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\bread"):  
+        for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/bread"):  
             for filename in files:
                 filenames.append(filename)
         
@@ -402,7 +402,7 @@ def editPageBusinessLunch(basedir, message, bot):
 
     elif(dataRecieve(basedir, message.from_user.id,3) == "drink"):
         filenames = []
-        for root, dirs, files in os.walk(basedir + r"\Storage\businessLunch\drink"):  
+        for root, dirs, files in os.walk(basedir + r"/Storage/businessLunch/drink"):  
             for filename in files:
                 filenames.append(filename)
         
@@ -443,7 +443,7 @@ def categoryMenu(basedir,message,bot):
     filenames = []
     amount = 0
 
-    for root, dirs, files in os.walk(basedir + r"\Storage\imagesForClients"):  
+    for root, dirs, files in os.walk(basedir + r"/Storage/imagesForClients"):  
         for dirname in dirs:
 
             amount += 1
@@ -547,7 +547,7 @@ def pageMenu(basedir,message,bot,page):
     filenames = []
     amount = 0
 
-    for root, dirs, files in os.walk(basedir + r"\Storage\images\\" + dirname):  
+    for root, dirs, files in os.walk(basedir + r"/Storage/images/" + dirname):  
         for filename in files:
             amount += 1
             filenames.append(filename)
@@ -570,7 +570,7 @@ def pageMenu(basedir,message,bot,page):
             dataChange(basedir, message.from_user.id, 1, "looking the menu")
             dataChange(basedir, message.from_user.id, 11, str(page))
             
-            with open(str(basedir) + r'\\Storage\\images\\'+ dirname +"\\"+ str(filenames[page - 1]) , "rb") as file:
+            with open(str(basedir) + r'/Storage/images/'+ dirname +"/"+ str(filenames[page - 1]) , "rb") as file:
 
                 count = counting(basedir,message,25,filenames[page - 1])
                 
@@ -608,7 +608,7 @@ def pageMenu(basedir,message,bot,page):
 
                 keyboard = types.InlineKeyboardMarkup(row_width=3)
                 
-                with open(str(basedir) + r'\\Storage\\images\\'+ dirname +"\\"+ str(filenames[page - 1]) , "rb") as file:
+                with open(str(basedir) + r'/Storage/images/'+ dirname +"/"+ str(filenames[page - 1]) , "rb") as file:
                     
                     count = counting(basedir,message,25,filenames[page - 1])
                 
@@ -639,7 +639,7 @@ def pageMenu(basedir,message,bot,page):
                    
                     caption = str(name + "\n" + gramm +"г/" + ruble + "руб")
 
-                    with open(str(basedir) + r'\\Storage\\images\\'+ dirname +"\\"+ filenames[page - 1] , "rb") as file:
+                    with open(str(basedir) + r'/Storage/images/'+ dirname +"/"+ filenames[page - 1] , "rb") as file:
                         photo = types.InputMediaPhoto(media = file)
 
                         
@@ -710,7 +710,7 @@ def userBot(basedir):
     def help_message(message):
         print("Клиентский | " + str(datetime.now())+ " | " + str(message.from_user.id) + " | "+ str(message.text))
 
-        file = open(str(basedir) + r'\\Storage\\help.txt', 'r', encoding='utf-8')
+        file = open(str(basedir) + r'/Storage/help.txt', 'r', encoding='utf-8')
         bot.send_message(message.chat.id, text = file.read() .format(message.from_user))
         file.close()
 
@@ -719,15 +719,15 @@ def userBot(basedir):
 
         print("Клиентский | " + str(datetime.now())+ " | " + str(message.from_user.id) + " | "+ str(message.text))
         
-        if (os.path.isfile(str(basedir) + r'\\Storage\\users\\' + str(message.from_user.id) + ".txt")) != True:
+        if (os.path.isfile(str(basedir) + r'/Storage/users/' + str(message.from_user.id) + ".txt")) != True:
 
-            file = open(str(basedir) + r'\\Storage\\users\\' + str(message.from_user.id) + ".txt", 'a', encoding='utf-8')
+            file = open(str(basedir) + r'/Storage/users/' + str(message.from_user.id) + ".txt", 'a', encoding='utf-8')
             file.write(userDataLayout)
             file.close()
 
         else:
 
-            file = open(str(basedir) + r'\\Storage\\users\\' + str(message.from_user.id) + ".txt", 'w', encoding='utf-8')
+            file = open(str(basedir) + r'/Storage/users/' + str(message.from_user.id) + ".txt", 'w', encoding='utf-8')
             file.write(userDataLayout)
             file.close()
 
@@ -744,8 +744,8 @@ def userBot(basedir):
 
         print("Клиентский | " + str(datetime.now())+ " | " + str(message.from_user.id) + " | "+ str(message.text))
 
-        if (os.path.isfile(str(basedir) + r'\\Storage\\users\\' + str(message.from_user.id) + ".txt")) != True:
-            file = open(str(basedir) + r'\\Storage\\users\\' + str(message.from_user.id) + ".txt", 'a', encoding='utf-8')
+        if (os.path.isfile(str(basedir) + r'/Storage/users/' + str(message.from_user.id) + ".txt")) != True:
+            file = open(str(basedir) + r'/Storage/users/' + str(message.from_user.id) + ".txt", 'a', encoding='utf-8')
             file.write(userDataLayout)
             file.close()
 
@@ -843,7 +843,7 @@ def userBot(basedir):
                 order += showOrder(basedir,message,bot)
                 dataChange(basedir, message.from_user.id, 2, "yes")
 
-                for root, dirs, files in os.walk(basedir + r"\Storage\workers"):  
+                for root, dirs, files in os.walk(basedir + r"/Storage/workers"):  
                         for filename in files:
                             id = filename.replace(".txt","")
                             try:
@@ -869,16 +869,16 @@ def userBot(basedir):
                 if(amountDiscont != "неизвестна скидка" and amountDiscont != ""):
                     dataChange(basedir, message.from_user.id, 22, "")
 
-                with open (str(basedir) + r'\\Storage\\statistics\\numberOrder.txt', 'r', encoding='utf-8') as file:
+                with open (str(basedir) + r'/Storage/statistics/numberOrder.txt', 'r', encoding='utf-8') as file:
                     numberOrder = int(file.read())
 
                 numberOrder += 1
 
-                with open (str(basedir) + r'\\Storage\\statistics\\numberOrder.txt', 'w', encoding='utf-8') as file:
+                with open (str(basedir) + r'/Storage/statistics/numberOrder.txt', 'w', encoding='utf-8') as file:
                     file.write(str(numberOrder))
 
                 order = " " + dataRecieve(basedir, message.from_user.id, 16)
-                with open (str(basedir) + r'\\Storage\\statistics\\orderAmounts.txt', 'a', encoding='utf-8') as file:
+                with open (str(basedir) + r'/Storage/statistics/orderAmounts.txt', 'a', encoding='utf-8') as file:
                     file.write(order)
 
                 bot.send_message(message.from_user.id, text = "✅ заказ оформлен ✅" .format(message.from_user))             
@@ -887,7 +887,7 @@ def userBot(basedir):
 
             elif(message.text == "Акции" and dataRecieve(basedir, message.from_user.id, 1) == "main page" and os.path.isfile(str(basedir) + r'\\Storage\\promotion.txt') == True):
                 
-                with open (str(basedir) + r'\\Storage\\promotion.txt', 'r', encoding='utf-8') as file:
+                with open (str(basedir) + r'/Storage/promotion.txt', 'r', encoding='utf-8') as file:
                     promotion = file.read()
 
                 bot.send_message(message.from_user.id, text = promotion .format(message.from_user),reply_markup = markup)
@@ -926,7 +926,7 @@ def userBot(basedir):
                     text = dataRecieve(basedir, message.from_user.id, 4)
                     businessLunch = businessLunch + text 
                     
-                    file = open(str(basedir) + r'\\Storage\\businessLunch\\prise.txt', "r", encoding='utf-8')
+                    file = open(str(basedir) + r'/Storage/businessLunch/prise.txt', "r", encoding='utf-8')
                     for i in range(1):
                         prise1 = file.readline()
                         
@@ -940,7 +940,7 @@ def userBot(basedir):
                     text = dataRecieve(basedir, message.from_user.id, 5)
                     businessLunch = businessLunch + text
 
-                    file = open(str(basedir) + r'\\Storage\\businessLunch\\prise.txt', "r",encoding='utf-8')
+                    file = open(str(basedir) + r'/Storage/businessLunch/prise.txt', "r",encoding='utf-8')
                     for i in range(2):
                         prise2 = file.readline()
                     file.close()
@@ -953,7 +953,7 @@ def userBot(basedir):
                     text = dataRecieve(basedir, message.from_user.id, 6)
                     businessLunch = businessLunch + text 
 
-                    with open(str(basedir) + r'\\Storage\\businessLunch\\prise.txt', "r",encoding='utf-8') as file3:
+                    with open(str(basedir) + r'/Storage/businessLunch/prise.txt', "r",encoding='utf-8') as file3:
                         for i in range(3):
                             prise3 = file3.readline()
 
@@ -965,7 +965,7 @@ def userBot(basedir):
                     text = dataRecieve(basedir, message.from_user.id, 7)
                     businessLunch = businessLunch + text 
 
-                    with open(str(basedir) + r'\\Storage\\businessLunch\\prise.txt', "r",encoding='utf-8') as file4:
+                    with open(str(basedir) + r'/Storage/businessLunch/prise.txt', "r",encoding='utf-8') as file4:
                         for i in range(4):
                             prise4 = file4.readline()
                     
@@ -977,7 +977,7 @@ def userBot(basedir):
                     text = dataRecieve(basedir, message.from_user.id, 8)
                     businessLunch = businessLunch + text
 
-                    with open(str(basedir) + r'\\Storage\\businessLunch\\prise.txt', "r",encoding='utf-8') as file5:
+                    with open(str(basedir) + r'/Storage/businessLunch/prise.txt', "r",encoding='utf-8') as file5:
                         for i in range(5):
                             prise5 = file5.readline()
 
@@ -989,7 +989,7 @@ def userBot(basedir):
                     text = dataRecieve(basedir, message.from_user.id, 9)
                     businessLunch = businessLunch + text 
 
-                    with open(str(basedir) + r'\\Storage\\businessLunch\\prise.txt', "r",encoding='utf-8') as file6:
+                    with open(str(basedir) + r'/Storage/businessLunch/prise.txt', "r",encoding='utf-8') as file6:
                         for i in range(6):
                             prise6 = file6.readline()
 
@@ -1091,13 +1091,13 @@ def userBot(basedir):
     def inline(message):
         print("Клиентский | " + str(datetime.now())+ " | " + str(message.from_user.id) + " | "+ str(message.data))
 
-        if (os.path.isfile(str(basedir) + r'\\Storage\\users\\' + str(message.from_user.id) + ".txt")) != True:
+        if (os.path.isfile(str(basedir) + r'/Storage/users/' + str(message.from_user.id) + ".txt")) != True:
 
-            file = open(str(basedir) + r'\\Storage\\users\\' + str(message.from_user.id) + ".txt", 'a', encoding='utf-8')
+            file = open(str(basedir) + r'/Storage/users/' + str(message.from_user.id) + ".txt", 'a', encoding='utf-8')
             file.write(userDataLayout)
             file.close()
             
-            with open (str(basedir) + r'\\Storage\\startInfo\\1-page.txt', 'r', encoding = "utf-8") as f:
+            with open (str(basedir) + r'/Storage/startInfo/1-page.txt', 'r', encoding = "utf-8") as f:
                 infoToReturn = str(f.read())
                 infoToReturn = infoToReturn.replace(r"\n", "\n")
                 infoToReturn = infoToReturn.replace(r"/n", "\n")
@@ -1113,7 +1113,7 @@ def userBot(basedir):
             if(message.data == "education-yes" or message.data == "education-continue" or message.data == "education-continue_2"):
                 if(message.data == "education-yes"):
 
-                    with open (str(basedir) + r'\\Storage\\startInfo\\1-page.txt', 'r', encoding = "utf-8") as f:
+                    with open (str(basedir) + r'/Storage/startInfo/1-page.txt', 'r', encoding = "utf-8") as f:
                         infoToReturn = str(f.read())
                         infoToReturn = infoToReturn.replace(r"\n", "\n")
                         infoToReturn = infoToReturn.replace(r"/n", "\n")
@@ -1124,7 +1124,7 @@ def userBot(basedir):
                         bot.send_message(message.from_user.id, text = infoToReturn .format(message.from_user),reply_markup=keyboard)
 
                 elif(message.data == "education-continue"):
-                    with open (str(basedir) + r'\\Storage\\startInfo\\2-page.txt', 'r', encoding = "utf-8") as f:
+                    with open (str(basedir) + r'/Storage/startInfo/2-page.txt', 'r', encoding = "utf-8") as f:
                         infoToReturn = str(f.read())
                         infoToReturn = infoToReturn.replace(r"\n", "\n")
                         infoToReturn = infoToReturn.replace(r"/n", "\n")
@@ -1135,7 +1135,7 @@ def userBot(basedir):
                         bot.send_message(message.from_user.id, text = infoToReturn .format(message.from_user),reply_markup=keyboard)
 
                 elif(message.data == "education-continue_2"):
-                    with open (str(basedir) + r'\\Storage\\startInfo\\3-page.txt', 'r', encoding = "utf-8") as f:
+                    with open (str(basedir) + r'/Storage/startInfo/3-page.txt', 'r', encoding = "utf-8") as f:
                         infoToReturn = str(f.read())
                         infoToReturn = infoToReturn.replace(r"\n", "\n")
                         infoToReturn = infoToReturn.replace(r"/n", "\n")
@@ -1447,12 +1447,12 @@ def userBot(basedir):
         
         elif(dataRecieve(basedir, message.from_user.id, 1) == "evaluates" and dataRecieve(basedir, message.from_user.id, 2) == "yes"):
 
-            with open(str(basedir) + r'\\Storage\\statistics\\evaluations.txt', 'r', encoding='utf-8') as file:              
+            with open(str(basedir) + r'/Storage/statistics/evaluations.txt', 'r', encoding='utf-8') as file:              
                 pastText = file.read()
             
             pastText += " " + str(message.data)
 
-            with open(str(basedir) + r'\\Storage\\statistics\\evaluations.txt', 'w', encoding='utf-8') as file:
+            with open(str(basedir) + r'/Storage/statistics/evaluations.txt', 'w', encoding='utf-8') as file:
                 file.write(pastText)
                 
             dataChange(basedir, message.from_user.id, 2, "no")
