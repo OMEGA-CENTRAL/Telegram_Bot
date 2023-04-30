@@ -48,6 +48,7 @@ def mainPage(basedir, message, bot):
     bot.set_my_commands([
         telebot.types.BotCommand("/help", "ℹ Информация"),
         telebot.types.BotCommand("/start", "🔄 Перезапустить бота"),
+        
     ])
 
     if (os.path.isfile(str(basedir) + r'/Storage/promotion.txt')) == True:
