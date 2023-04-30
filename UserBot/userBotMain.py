@@ -692,7 +692,8 @@ def showOrder(basedir,message,bot):
     return textToReturn
 
 def userBot(basedir):
-
+    
+    print("Клиентский бот запущен")
     textToInsert = "Корзина:\nМеню:\nменю неизвестно\nБизнес-ланчи:\n"
     for i in range(100):
         textToInsert = str(textToInsert + "none:" + str(i) + "\n")
