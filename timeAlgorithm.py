@@ -94,7 +94,7 @@ def avaregeOrder(basedir):
 
 def distributionShares(basedir):
 
-    userToken = "5778968531:AAEmYXnNrWlfz4qpdmS8kfO0bgKavtuF-Kk"
+    userToken = ""
     bot = telebot.TeleBot(userToken)
 
     with open(str(basedir) + r'/Storage/minimumOrderAmount.txt', 'r', encoding='utf-8') as file:              
