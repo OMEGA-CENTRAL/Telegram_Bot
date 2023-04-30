@@ -359,15 +359,15 @@ def editBusinessLunch(basedir, message, bot):
 
 def workBot(basedir):
     
-    password = ":yakub2007"
+    password = ""
     print("Рабочий бот запущен")
     userDataLayout = "статус неизвестен\nдействие неизвестно\nпункт меню неизвестен\nнеизвестное имя блюда\nнеизвестная граммовка блюда\nнеизвестная цена блюда\n"
 
 
-    workToken = "6248869227:AAGPNfOpjhIEgYC4opEpUwOouCSpVKEAAEc"
+    workToken = ""
     bot = telebot.TeleBot(workToken)
 
-    userToken = "5778968531:AAEmYXnNrWlfz4qpdmS8kfO0bgKavtuF-Kk"
+    userToken = ""
     userBot = telebot.TeleBot(userToken)
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
