@@ -700,10 +700,10 @@ def userBot(basedir):
         textToInsert = str(textToInsert + "none:" + str(i) + "\n")
     userDataLayout = "действие неизвестно\nналичие неоцененного заказа неизвестно\nкатегория бизнес-ланча неизвестен\nсуп неизвестен\nгорячее неизвестно\nгарнир неизвестен\nсалат неизвестен\nхлеб неизвестен\nнапиток неизвестен\nкатегория меню неизвестна\nстраница неизвестна\nномер неизвестен\nадрес доставки неизвестен\nспособ оплаты неизвестен\nкомментарий к заказу неизвестен\nсумма заказа неизвестна\nзаказ неизвестен\nномер сообщения цены неизвестен\nспособ получения неизвестен\nпункт самовывоза неизвестен\nнеизвестна сумма заказа за месяц\nнеизвестна скидка\n" + textToInsert
 
-    workToken = "6248869227:AAGPNfOpjhIEgYC4opEpUwOouCSpVKEAAEc"
+    workToken = ""
     workbot = telebot.TeleBot(workToken)
 
-    userToken = "5778968531:AAEmYXnNrWlfz4qpdmS8kfO0bgKavtuF-Kk"
+    userToken = ""
     bot = telebot.TeleBot(userToken)
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
