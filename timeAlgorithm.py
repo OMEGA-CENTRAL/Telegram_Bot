@@ -7,23 +7,23 @@ def dataChange(basedir, IDforChange, lineNumberToChange, replacementText):
 
     replacementText = replacementText + str(hex(lineNumberToChange)) +"\n"
 
-    with open(str(basedir) + r'\\Storage\\users\\' + str(IDforChange)+ ".txt", 'r', encoding='utf-8') as file:              
+    with open(str(basedir) + r'/Storage/users/' + str(IDforChange)+ ".txt", 'r', encoding='utf-8') as file:              
         for i in range(lineNumberToChange):
             lineToChange = file.readline()
         file.close()
     
-    with open (str(basedir) + r'\\Storage\\users\\' + str(IDforChange)+".txt", 'r', encoding='utf-8') as f:
+    with open (str(basedir) + r'/Storage/users/' + str(IDforChange)+".txt", 'r', encoding='utf-8') as f:
         old_data = f.read()
     
     new_data = old_data.replace(lineToChange, replacementText)
     
-    with open (str(basedir) + r'\\Storage\\users\\' + str(IDforChange) + ".txt", 'w', encoding='utf-8') as f:
+    with open (str(basedir) + r'/Storage/users/' + str(IDforChange) + ".txt", 'w', encoding='utf-8') as f:
         f.write(new_data)
 
 
 def dataRecieve(basedir, IDforRecieve, lineNumberToRecieve):
 
-    file = open(str(basedir) + r'\\Storage\\users\\' + str(IDforRecieve)+".txt", 'r', encoding='utf-8')
+    file = open(str(basedir) + r'/Storage/users/' + str(IDforRecieve)+".txt", 'r', encoding='utf-8')
     for i in range(lineNumberToRecieve):
         lineToReturn = file.readline()
     file.close()
@@ -49,32 +49,32 @@ def startTimeWaiting():
 
 def countingNewUsers(basedir):
     numberUsers = 0
-    for root, dirs, files in os.walk(basedir + r"\Storage\users"):  
+    for root, dirs, files in os.walk(basedir + r"/Storage/users"):  
             for file in files:
                 numberUsers += 1
 
-    with open (str(basedir) + r'\\Storage\\statistics\\usersLastMouth.txt', 'r', encoding='utf-8') as file:
+    with open (str(basedir) + r'/Storage/statistics/usersLastMouth.txt', 'r', encoding='utf-8') as file:
           numberUsersLastMouth = file.read()      
 
-    with open (str(basedir) + r'\\Storage\\statistics\\users.txt', 'w', encoding='utf-8') as file:
+    with open (str(basedir) + r'/Storage/statistics/users.txt', 'w', encoding='utf-8') as file:
           file.write(str(numberUsers - int(numberUsersLastMouth)))
 
-    with open (str(basedir) + r'\\Storage\\statistics\\usersLastMouth.txt', 'w', encoding='utf-8') as file:
+    with open (str(basedir) + r'/Storage/statistics/usersLastMouth.txt', 'w', encoding='utf-8') as file:
           file.write(str(numberUsers))
 
 def countingOrders(basedir):
-    with open (str(basedir) + r'\\Storage\\statistics\\numberOrder.txt', 'r', encoding='utf-8') as file:
+    with open (str(basedir) + r'/Storage/statistics/numberOrder.txt', 'r', encoding='utf-8') as file:
         numberOrder = file.read()
     
-    with open (str(basedir) + r'\\Storage\\statistics\\numberOrderLastMouth.txt', 'w', encoding='utf-8') as file:
+    with open (str(basedir) + r'/Storage/statistics/numberOrderLastMouth.txt', 'w', encoding='utf-8') as file:
         file.write(str(numberOrder))
 
-    with open (str(basedir) + r'\\Storage\\statistics\\numberOrder.txt', 'w', encoding='utf-8') as file:
+    with open (str(basedir) + r'/Storage/statistics/numberOrder.txt', 'w', encoding='utf-8') as file:
         file.write("0")
 
 def avaregeOrder(basedir):
 
-    with open(str(basedir) + r'\\Storage\\statistics\\orderAmounts.txt', 'r', encoding='utf-8') as file:              
+    with open(str(basedir) + r'/Storage/statistics/orderAmounts.txt', 'r', encoding='utf-8') as file:              
         orders = file.read()
     
     averageOrder = 0
@@ -86,10 +86,10 @@ def avaregeOrder(basedir):
         averageOrder = float(averageOrder / len(orders))
         averageOrder = round(averageOrder, 2)
     
-    with open(str(basedir) + r'\\Storage\\statistics\\averageCheckLastMouth.txt', 'w', encoding='utf-8') as file:              
+    with open(str(basedir) + r'/Storage/statistics/averageCheckLastMouth.txt', 'w', encoding='utf-8') as file:              
         file.write(str(averageOrder))
 
-    with open(str(basedir) + r'\\Storage\\statistics\\orderAmounts.txt', 'w', encoding='utf-8') as file:              
+    with open(str(basedir) + r'/Storage/statistics/orderAmounts.txt', 'w', encoding='utf-8') as file:              
         file.write("")
 
 def distributionShares(basedir):
@@ -97,15 +97,15 @@ def distributionShares(basedir):
     userToken = "5778968531:AAEmYXnNrWlfz4qpdmS8kfO0bgKavtuF-Kk"
     bot = telebot.TeleBot(userToken)
 
-    with open(str(basedir) + r'\\Storage\\minimumOrderAmount.txt', 'r', encoding='utf-8') as file:              
+    with open(str(basedir) + r'/Storage/minimumOrderAmount.txt', 'r', encoding='utf-8') as file:              
                     minimumOrderAmount = file.read()
 
-    with open(str(basedir) + r'\\Storage\\amountDiscont.txt', 'r', encoding='utf-8') as file:              
+    with open(str(basedir) + r'/Storage/amountDiscont.txt', 'r', encoding='utf-8') as file:              
                     amountDiscont = file.read()
 
     amount = 0
 
-    for root, dirs, files in os.walk(basedir + r"\Storage\users"):  
+    for root, dirs, files in os.walk(basedir + r"/Storage/users"):  
             for file in files:
 
                 file = str(file)
@@ -124,6 +124,6 @@ def distributionShares(basedir):
                 
                 dataChange(basedir, file, 21, "0")
 
-    with open(str(basedir) + r'\\Storage\\statistics\\amountsDiscont.txt', 'w', encoding='utf-8') as file:              
+    with open(str(basedir) + r'/Storage/statistics/amountsDiscont.txt', 'w', encoding='utf-8') as file:              
         file.write(str(amount))
 
