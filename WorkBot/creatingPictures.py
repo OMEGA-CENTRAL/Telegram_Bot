@@ -17,24 +17,24 @@ def creatingPictures(firstNameImage, secondNameImage, thirdNameImage, fourthName
 
         log  = (str(datetime.now()) + ' Картинка: '+ str(namePage) + ' ' + str(numberPage) + ' страница - начато создание...' + '\n')
 
-        logs = open(str(basedir) + r'\Storage\logs.txt', 'a', encoding='utf-8')
+        logs = open(str(basedir) + r'/Storage/logs.txt', 'a', encoding='utf-8')
         logs.write(log)
         logs.close()
 
-        fontForName = ImageFont.truetype(basedir + r'\WorkBot\Fonts\font.ttf', size = 78)
-        fontForPage = ImageFont.truetype(basedir + r'\WorkBot\Fonts\font.ttf', size = 64)
-        fontForNumbers = ImageFont.truetype(basedir + r'\WorkBot\Fonts\font.ttf', size = 78)
-        fontForNameImage = ImageFont.truetype(basedir + r'\WorkBot\Fonts\font.ttf', size = 38)
+        fontForName = ImageFont.truetype(basedir + r'/WorkBot/Fonts/font.ttf', size = 78)
+        fontForPage = ImageFont.truetype(basedir + r'/WorkBot/Fonts/font.ttf', size = 64)
+        fontForNumbers = ImageFont.truetype(basedir + r'/WorkBot/Fonts/font.ttf', size = 78)
+        fontForNameImage = ImageFont.truetype(basedir + r'/WorkBot/Fonts/font.ttf', size = 38)
 
         Background = Image.new('RGB', (1200, 1400), color = colorForBackground)
 
-        firstPath = str(basedir + r"\\Storage\\images\\" + namePage + r"\\" + firstNameImage + '.jpg')
+        firstPath = str(basedir + r"/Storage/images/" + namePage + r"/" + firstNameImage + '.jpg')
         if(secondNameImage != 'empty'):
-            secondPath = str(basedir + r"\\Storage\\images\\" + namePage + r"\\" + secondNameImage + '.jpg')
+            secondPath = str(basedir + r"/Storage/images/" + namePage + r"/" + secondNameImage + '.jpg')
         if(thirdNameImage != 'empty'):
-            thirdPath = str(basedir + r"\\Storage\\images\\" + namePage + r"\\" + thirdNameImage + '.jpg')
+            thirdPath = str(basedir + r"/Storage/images/" + namePage + r"/" + thirdNameImage + '.jpg')
         if(fourthNameImage != 'empty'):
-            fourthPath = str(basedir + r"\\Storage\\images\\" + namePage + r"\\" + fourthNameImage + '.jpg')
+            fourthPath = str(basedir + r"/Storage/images/" + namePage + r"/" + fourthNameImage + '.jpg')
 
         firstImage = Image.open(firstPath).convert('RGBA')
         if(secondNameImage != 'empty'):
@@ -158,7 +158,7 @@ def creatingPictures(firstNameImage, secondNameImage, thirdNameImage, fourthName
         leadTime = time.time() - startTime
         log  = (str(datetime.now()) + ' Картинка: '+ str(namePage) + ' ' + str(numberPage) + ' страница - успешно создана за ' + str(round(leadTime,3)) + ' ms' + '\n')
         
-        logs = open(str(basedir) + r'\Storage\logs.txt', 'a',encoding='utf-8')
+        logs = open(str(basedir) + r'/Storage/logs.txt', 'a',encoding='utf-8')
         logs.write(log)
         logs.close()
 
@@ -166,8 +166,8 @@ def creatingPictures(firstNameImage, secondNameImage, thirdNameImage, fourthName
 
         log  = (str(datetime.now()) + ' Картинка: '+ str(namePage) + ' ' + str(numberPage) + ' страница - ошибка при создании!' + '\n')
         
-        logs = open(str(basedir) + r'\Storage\logs.txt', 'a',encoding='utf-8')
+        logs = open(str(basedir) + r'/Storage/logs.txt', 'a',encoding='utf-8')
         logs.write(log)
         logs.close()
 
-        print("Ошибка!")
+       
