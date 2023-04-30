@@ -1099,7 +1099,9 @@ def userBot(basedir):
             
             with open (str(basedir) + r'\\Storage\\startInfo\\1-page.txt', 'r', encoding = "utf-8") as f:
                 infoToReturn = str(f.read())
-
+                infoToReturn = infoToReturn.replace(r"\n", "\n")
+                infoToReturn = infoToReturn.replace(r"/n", "\n")
+                
                 keyboard = types.InlineKeyboardMarkup(row_width=1)
                 btn1 = types.InlineKeyboardButton(text = "Продолжить ➡️", callback_data = "education-continue")
                 keyboard.add(btn1)
@@ -1113,6 +1115,8 @@ def userBot(basedir):
 
                     with open (str(basedir) + r'\\Storage\\startInfo\\1-page.txt', 'r', encoding = "utf-8") as f:
                         infoToReturn = str(f.read())
+                        infoToReturn = infoToReturn.replace(r"\n", "\n")
+                        infoToReturn = infoToReturn.replace(r"/n", "\n")
 
                         keyboard = types.InlineKeyboardMarkup(row_width=1)
                         btn1 = types.InlineKeyboardButton(text = "Продолжить ➡️", callback_data = "education-continue")
@@ -1122,7 +1126,9 @@ def userBot(basedir):
                 elif(message.data == "education-continue"):
                     with open (str(basedir) + r'\\Storage\\startInfo\\2-page.txt', 'r', encoding = "utf-8") as f:
                         infoToReturn = str(f.read())
-
+                        infoToReturn = infoToReturn.replace(r"\n", "\n")
+                        infoToReturn = infoToReturn.replace(r"/n", "\n")
+        
                         keyboard = types.InlineKeyboardMarkup(row_width=1)
                         btn1 = types.InlineKeyboardButton(text = "Продолжить ➡️", callback_data = "education-continue_2")
                         keyboard.add(btn1)
@@ -1131,6 +1137,8 @@ def userBot(basedir):
                 elif(message.data == "education-continue_2"):
                     with open (str(basedir) + r'\\Storage\\startInfo\\3-page.txt', 'r', encoding = "utf-8") as f:
                         infoToReturn = str(f.read())
+                        infoToReturn = infoToReturn.replace(r"\n", "\n")
+                        infoToReturn = infoToReturn.replace(r"/n", "\n")
 
                         keyboard = types.InlineKeyboardMarkup(row_width=1)
                         btn1 = types.InlineKeyboardButton(text = "Продолжить ➡️", callback_data = "education-no")
